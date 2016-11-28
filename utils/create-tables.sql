@@ -3,8 +3,8 @@ CREATE TABLE IF NOT EXISTS Account (
 	first_name Varchar(40) NOT NULL,
 	last_name Varchar(40) NOT NULL,
 	email Varchar(100) UNIQUE NOT NULL,
-	password Varchar(32) NOT NULL, -- Password Hash using PBKDF2 Hmac SHA512
-	salt Varchar(32) NOT NULL, -- Password Hash Salt
+	password Varbinary(64) NOT NULL, -- Password Hash using PBKDF2 Hmac SHA512
+	salt Varbinary(64) NOT NULL, -- Password Hash Salt
 	PRIMARY KEY (id),
 	INDEX (email)
 );

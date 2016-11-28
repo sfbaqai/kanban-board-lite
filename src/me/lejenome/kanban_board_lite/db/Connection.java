@@ -17,21 +17,20 @@ public class Connection {
         try {
             connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/distributed", "test", "test");
         } catch (SQLException e) {
+            e.printStackTrace();
             throw new Error("Cannot Connect to the Database. Please see the manual for more details");
         }
     }
 
     public static ResultSet executeQuery(String query, Object... args) {
-        ResultSet rs = null;
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             for (int i = 0; i < args.length - 1; i += 2) {
                 stmt.setObject((i / 2) + 1, args[i], (int) args[i + 1]);
             }
-            rs = stmt.executeQuery();
+            return stmt.executeQuery();
         } catch (SQLException e) {
-            e.printStackTrace();
+            return null;
         }
-        return rs;
     }
 
     public static boolean execute(String query, Object... args) {
