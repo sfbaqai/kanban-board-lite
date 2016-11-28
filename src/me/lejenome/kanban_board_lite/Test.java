@@ -1,6 +1,8 @@
 package me.lejenome.kanban_board_lite;
 
-import me.lejenome.kanban_board_lite.db.*;
+import me.lejenome.kanban_board_lite.db.Account;
+import me.lejenome.kanban_board_lite.db.Connection;
+import me.lejenome.kanban_board_lite.db.Project;
 
 public class Test {
     public static void main(String args[]) {
@@ -11,5 +13,9 @@ public class Test {
         System.out.println(acc);
         System.out.println(acc2);
         System.out.println(acc3);
+        Project p = Project.create("roadmap", "Roadmap or Porject", acc3, null);
+        Project p2 = Project.get("roadmap");
+        System.out.println(p);
+        System.out.println(p2);
     }
 }

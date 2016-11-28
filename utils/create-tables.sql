@@ -10,12 +10,13 @@ CREATE TABLE IF NOT EXISTS Account (
 );
 
 CREATE TABLE IF NOT EXISTS Project (
-	id Integer Unsigned Auto_Increment,
-	title Varchar(200) NOT NULL,
-	description Text,
-	owner Integer Unsigned NOT NULL,
-	parent Integer Unsigned NOT NULL,
+  id          Integer Unsigned Auto_Increment,
+  name        VARCHAR(200) UNIQUE NOT NULL,
+  description Text,
+  owner       Integer Unsigned    NOT NULL,
+  parent      INTEGER UNSIGNED,
 	PRIMARY KEY (id),
+  INDEX (name),
 	FOREIGN KEY fk_owner (owner) REFERENCES Account (id) ON DELETE RESTRICT,
 	FOREIGN KEY fk_parent (parent) REFERENCES Project (id) ON DELETE CASCADE
 );

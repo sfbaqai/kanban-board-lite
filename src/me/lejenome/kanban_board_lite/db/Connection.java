@@ -29,6 +29,7 @@ public class Connection {
             }
             return stmt.executeQuery();
         } catch (SQLException e) {
+            e.printStackTrace();
             return null;
         }
     }
@@ -40,6 +41,7 @@ public class Connection {
             }
             return stmt.execute();
         } catch (SQLException e) {
+            e.printStackTrace();
             return false;
         }
     }
@@ -51,6 +53,7 @@ public class Connection {
             }
             return stmt.executeUpdate();
         } catch (SQLException e) {
+            e.printStackTrace();
             return -1;
         }
     }

@@ -12,13 +12,13 @@ import java.sql.Types;
 import java.util.Arrays;
 
 public class Account {
+    private static SecureRandom rand = new SecureRandom();
     private int id;
     private String first_name;
     private String last_name;
     private String email;
     private byte[] password;
     private byte[] salt;
-    private static SecureRandom rand = new SecureRandom();
 
     private Account() {
     }
@@ -28,6 +28,7 @@ public class Account {
         this.last_name = last_name;
         this.email = email;
     }
+
 
     public static Account create(String first_name, String last_name, String email, String password) {
         Account acc = new Account(first_name, last_name, email);
@@ -44,6 +45,21 @@ public class Account {
             return acc;
     }
 
+    public static Account get(final int id) {
+        Account acc = null;
+        ResultSet res = Connection.executeQuery("Select * from Account where id = ?",
+                id, Types.INTEGER);
+        try {
+            res.next();
+            acc = new Account(res.getString("first_name"), res.getString("last_name"), res.getString("email"));
+            acc.id = res.getInt("id");
+            acc.password = res.getBytes("password");
+            acc.salt = res.getBytes("salt");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return acc;
+    }
     public static Account get(final String email) {
         Account acc = null;
         ResultSet res = Connection.executeQuery("Select * from Account where email = ?",
@@ -98,4 +114,37 @@ public class Account {
                 ", email='" + email +
                 '}';
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getFirst_name() {
+        return first_name;
+    }
+
+    public void setFirst_name(String first_name) {
+        this.first_name = first_name;
+    }
+
+    public String getLast_name() {
+        return last_name;
+    }
+
+    public void setLast_name(String last_name) {
+        this.last_name = last_name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
 }
