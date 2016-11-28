@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="MariaDB - distributed@localhost">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.0">
+    <root id="1"/>
+    <schema id="2" parent="1" name="distributed">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="3" parent="1" name="demo"/>
+    <schema id="4" parent="1" name="django_db"/>
+    <schema id="5" parent="1" name="information_schema"/>
+    <schema id="6" parent="1" name="mysql"/>
+    <schema id="7" parent="1" name="performance_schema"/>
+    <schema id="8" parent="1" name="test"/>
+    <table id="9" parent="2" name="Account"/>
+    <table id="10" parent="2" name="Project"/>
+    <table id="11" parent="2" name="TICKET_PRIORITY"/>
+    <table id="12" parent="2" name="TICKET_STATUS"/>
+    <table id="13" parent="2" name="Ticket"/>
+    <column id="14" parent="9" name="id">
+      <Position>1</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="15" parent="9" name="first_name">
+      <Position>2</Position>
+      <DataType>varchar(40)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="16" parent="9" name="last_name">
+      <Position>3</Position>
+      <DataType>varchar(40)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="17" parent="9" name="email">
+      <Position>4</Position>
+      <DataType>varchar(100)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="18" parent="9" name="password">
+      <Position>5</Position>
+      <DataType>varchar(32)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="19" parent="9" name="salt">
+      <Position>6</Position>
+      <DataType>varchar(32)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="20" parent="9" name="email">
+      <ColNames>email</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="21" parent="9" name="email_2">
+      <ColNames>email</ColNames>
+    </index>
+    <key id="22" parent="9" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="23" parent="9" name="email">
+      <ColNames>email</ColNames>
+      <UnderlyingIndexName>email</UnderlyingIndexName>
+    </key>
+    <column id="24" parent="10" name="id">
+      <Position>1</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="25" parent="10" name="title">
+      <Position>2</Position>
+      <DataType>varchar(200)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="26" parent="10" name="description">
+      <Position>3</Position>
+      <DataType>text|0</DataType>
+    </column>
+    <column id="27" parent="10" name="owner">
+      <Position>4</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="28" parent="10" name="parent">
+      <Position>5</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="29" parent="10" name="fk_owner">
+      <ColNames>owner</ColNames>
+    </index>
+    <index id="30" parent="10" name="fk_parent">
+      <ColNames>parent</ColNames>
+    </index>
+    <key id="31" parent="10" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="32" parent="10" name="fk_owner">
+      <ColNames>owner</ColNames>
+      <RefSchemaName>distributed</RefSchemaName>
+      <RefTableName>Account</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="33" parent="10" name="fk_parent">
+      <ColNames>parent</ColNames>
+      <RefSchemaName>distributed</RefSchemaName>
+      <RefTableName>Project</RefTableName>
+      <RefColNames>id</RefColNames>
+      <OnDelete>delete</OnDelete>
+    </foreign-key>
+    <column id="34" parent="11" name="title">
+      <Position>1</Position>
+      <DataType>varchar(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="35" parent="11" name="level">
+      <Position>2</Position>
+      <DataType>smallint(3) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="36" parent="11" name="level">
+      <ColNames>level</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="37" parent="11" name="title">
+      <ColNames>title</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="38" parent="11" name="title_2">
+      <ColNames>title</ColNames>
+    </index>
+    <key id="39" parent="11" name="PRIMARY">
+      <ColNames>level</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="40" parent="11" name="title">
+      <ColNames>title</ColNames>
+      <UnderlyingIndexName>title</UnderlyingIndexName>
+    </key>
+    <key id="41" parent="11" name="level">
+      <ColNames>level</ColNames>
+      <UnderlyingIndexName>level</UnderlyingIndexName>
+    </key>
+    <column id="42" parent="12" name="title">
+      <Position>1</Position>
+      <DataType>varchar(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="43" parent="12" name="level">
+      <Position>2</Position>
+      <DataType>smallint(2) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="44" parent="12" name="level">
+      <ColNames>level</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="45" parent="12" name="title">
+      <ColNames>title</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="46" parent="12" name="title_2">
+      <ColNames>title</ColNames>
+    </index>
+    <key id="47" parent="12" name="PRIMARY">
+      <ColNames>level</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="48" parent="12" name="title">
+      <ColNames>title</ColNames>
+      <UnderlyingIndexName>title</UnderlyingIndexName>
+    </key>
+    <key id="49" parent="12" name="level">
+      <ColNames>level</ColNames>
+      <UnderlyingIndexName>level</UnderlyingIndexName>
+    </key>
+    <column id="50" parent="13" name="id">
+      <Position>1</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="51" parent="13" name="title">
+      <Position>2</Position>
+      <DataType>varchar(100)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="52" parent="13" name="description">
+      <Position>3</Position>
+      <DataType>text|0</DataType>
+    </column>
+    <column id="53" parent="13" name="status">
+      <Position>4</Position>
+      <DataType>smallint(2) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <column id="54" parent="13" name="priority">
+      <Position>5</Position>
+      <DataType>smallint(3) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <column id="55" parent="13" name="due">
+      <Position>6</Position>
+      <DataType>date|0</DataType>
+    </column>
+    <column id="56" parent="13" name="assigned_to">
+      <Position>7</Position>
+      <DataType>int(10) unsigned|0</DataType>
+    </column>
+    <column id="57" parent="13" name="project">
+      <Position>8</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="58" parent="13" name="fk_assigned_to">
+      <ColNames>assigned_to</ColNames>
+    </index>
+    <index id="59" parent="13" name="fk_priority">
+      <ColNames>priority</ColNames>
+    </index>
+    <index id="60" parent="13" name="fk_project">
+      <ColNames>project</ColNames>
+    </index>
+    <index id="61" parent="13" name="fk_status">
+      <ColNames>status</ColNames>
+    </index>
+    <key id="62" parent="13" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="63" parent="13" name="fk_status">
+      <ColNames>status</ColNames>
+      <RefSchemaName>distributed</RefSchemaName>
+      <RefTableName>TICKET_STATUS</RefTableName>
+      <RefColNames>level</RefColNames>
+    </foreign-key>
+    <foreign-key id="64" parent="13" name="fk_priority">
+      <ColNames>priority</ColNames>
+      <RefSchemaName>distributed</RefSchemaName>
+      <RefTableName>TICKET_PRIORITY</RefTableName>
+      <RefColNames>level</RefColNames>
+    </foreign-key>
+    <foreign-key id="65" parent="13" name="fk_assigned_to">
+      <ColNames>assigned_to</ColNames>
+      <RefSchemaName>distributed</RefSchemaName>
+      <RefTableName>Account</RefTableName>
+      <RefColNames>id</RefColNames>
+      <OnDelete>set-null</OnDelete>
+    </foreign-key>
+    <foreign-key id="66" parent="13" name="fk_project">
+      <ColNames>project</ColNames>
+      <RefSchemaName>distributed</RefSchemaName>
+      <RefTableName>Project</RefTableName>
+      <RefColNames>id</RefColNames>
+      <OnDelete>delete</OnDelete>
+    </foreign-key>
+  </database-model>
+</dataSource>
