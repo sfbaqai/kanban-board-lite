@@ -3,6 +3,7 @@ package me.lejenome.kanban_board_lite.db;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.Vector;
 
 public class Project {
     private int id;
@@ -30,7 +31,7 @@ public class Project {
         int res = Connection.executeUpdate("Insert Into Project (name, description, owner, parent) values (?, ?, ?, ?)",
                 p.name, Types.VARCHAR,
                 p.description, Types.VARCHAR,
-                (p.owner == null) ? null : p.owner.getId(), Types.INTEGER,
+                p.owner.getId(), Types.INTEGER,
                 (p.parent == null) ? null : p.parent.id, Types.INTEGER);
         if (res != -1)
             return p;
@@ -64,6 +65,29 @@ public class Project {
         } catch (SQLException e) {
             return null;
         }
+    }
+
+    public boolean save() {
+        return Connection.execute("Update Project SET name = ?, description = ?, owner = ?, parent = ? WHERE id = ?",
+                name, Types.VARCHAR,
+                description, Types.VARBINARY,
+                owner.getId(), Types.INTEGER,
+                (parent == null) ? null : parent.id, parent.id);
+    }
+
+    public static Vector<Project> all() {
+        Vector<Project> v = new Vector<>();
+        ResultSet res = Connection.executeQuery("Select * From Project");
+        try {
+            while (res.next()) {
+                Project p = new Project(res.getString("name"), res.getString("description"), res.getInt("owner"), res.getInt("parent"));
+                p.id = res.getInt("id");
+                v.add(p);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return v;
     }
 
     public int getId() {

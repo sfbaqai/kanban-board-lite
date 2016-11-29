@@ -1,8 +1,6 @@
 package me.lejenome.kanban_board_lite;
 
-import me.lejenome.kanban_board_lite.db.Account;
-import me.lejenome.kanban_board_lite.db.Connection;
-import me.lejenome.kanban_board_lite.db.Project;
+import me.lejenome.kanban_board_lite.db.*;
 
 public class Test {
     public static void main(String args[]) {
@@ -17,5 +15,12 @@ public class Test {
         Project p2 = Project.get("roadmap");
         System.out.println(p);
         System.out.println(p2);
+        System.out.println("List:");
+        for(Project pe: Project.all())
+            System.out.println(pe);
+        for(int k: TICKET_PRIORITY.getInstance().keySet())
+            System.out.println("PRIORITY: " + k + ": " + TICKET_PRIORITY.getInstance().get(k));
+        for(int k: TICKET_STATUS.getInstance().keySet())
+            System.out.println("STATUS : " + k + ": " + TICKET_STATUS.getInstance().get(k));
     }
 }
