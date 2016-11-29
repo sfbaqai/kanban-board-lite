@@ -22,7 +22,7 @@ public class Project {
         this.parent = parent;
     }
 
-    public Project(String name, String description, int owner, int parent) {
+    private Project(String name, String description, int owner, int parent) {
         this(name, description, Account.get(owner), get(parent));
     }
 
