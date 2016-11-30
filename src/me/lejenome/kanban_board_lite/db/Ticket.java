@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.Date;
+import java.util.Vector;
 
 /**
  * Created by lejenome on 11/28/16.
@@ -61,6 +62,23 @@ public class Ticket {
             return t;
         else
             return null;
+    }
+    public Vector<Ticket> tickets(Project p) {
+        Vector<Ticket> v = new Vector<>();
+        ResultSet res = Connection.executeQuery("Select * from Ticket Where project = ?",
+                p.getId(), Types.INTEGER);
+        try {
+            while (res.next()) {
+                Ticket t;
+                t = new Ticket(res.getString("title"), res.getString("description"), res.getInt("status"), res.getInt("priority"), res.getInt("project"), res.getInt("assigned_to"), res.getDate("due"));
+                v.add(t);
+            }
+            return v;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+
     }
 
     public int getId() {

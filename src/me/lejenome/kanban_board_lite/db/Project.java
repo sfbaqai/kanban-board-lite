@@ -1,5 +1,7 @@
 package me.lejenome.kanban_board_lite.db;
 
+import com.sun.org.apache.xalan.internal.xsltc.compiler.util.ResultTreeType;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
@@ -25,6 +27,7 @@ public class Project {
     private Project(String name, String description, int owner, int parent) {
         this(name, description, Account.get(owner), get(parent));
     }
+
 
     public static Project create(String name, String description, Account owner, Project parent) {
         Project p = new Project(name, description, owner, parent);
@@ -78,6 +81,23 @@ public class Project {
     public static Vector<Project> all() {
         Vector<Project> v = new Vector<>();
         ResultSet res = Connection.executeQuery("Select * From Project");
+        try {
+            while (res.next()) {
+                Project p = new Project(res.getString("name"), res.getString("description"), res.getInt("owner"), res.getInt("parent"));
+                p.id = res.getInt("id");
+                v.add(p);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return v;
+    }
+
+
+    public static Vector<Project> all(Account owner) {
+        Vector<Project> v = new Vector<>();
+        ResultSet res = Connection.executeQuery("Select * From Project Where owner = ?",
+                owner.getId(), Types.INTEGER);
         try {
             while (res.next()) {
                 Project p = new Project(res.getString("name"), res.getString("description"), res.getInt("owner"), res.getInt("parent"));
