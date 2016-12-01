@@ -1,7 +1,6 @@
 package me.lejenome.kanban_board_lite.client;
 
 import me.lejenome.kanban_board_lite.common.*;
-import me.lejenome.kanban_board_lite.common.KanbanManager;
 
 import java.net.MalformedURLException;
 import java.rmi.Naming;
@@ -32,7 +31,7 @@ public class RMIClient {
             System.out.println("Get Project: " + p2);
         } catch (ProjectNotFoundException e) {
         }
-        /*
+
         System.out.println("List Projects:");
         for (Project pe : km.listProjects())
             System.out.println("+ " + pe);

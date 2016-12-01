@@ -1,11 +1,14 @@
 package me.lejenome.kanban_board_lite.server;
 
 import me.lejenome.kanban_board_lite.common.*;
-import me.lejenome.kanban_board_lite.server.db.*;
+import me.lejenome.kanban_board_lite.server.db.AccountEntity;
+import me.lejenome.kanban_board_lite.server.db.ProjectEntity;
+import me.lejenome.kanban_board_lite.server.db.TicketEntity;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Date;
+import java.util.Vector;
 
 public class KanbanManagerEngine extends UnicastRemoteObject implements KanbanManager {
 
@@ -26,7 +29,7 @@ public class KanbanManagerEngine extends UnicastRemoteObject implements KanbanMa
 
     @Override
     public Account updateAccount(Account account) throws AccountExistsException {
-        ((AccountEntity)account).save();
+        ((AccountEntity) account).save();
         return account;
     }
 
@@ -37,38 +40,47 @@ public class KanbanManagerEngine extends UnicastRemoteObject implements KanbanMa
 
     @Override
     public Project createProject(String name, String description, Account owner, Project parent) throws ProjectExistsException {
-        ProjectEntity p = new ProjectEntity(name, description, (AccountEntity)owner, (ProjectEntity)parent);
+        ProjectEntity p = new ProjectEntity(name, description, (AccountEntity) owner, (ProjectEntity) parent);
         p.save();
         return p;
     }
 
     @Override
     public Project updateProject(Project project) throws ProjectExistsException {
-        ((ProjectEntity)project).save();
+        ((ProjectEntity) project).save();
         return project;
     }
 
-    /*
     @Override
     public Vector<Project> listProjects() {
-        return ProjectEntity.all();
+
+        Vector<ProjectEntity> l = ProjectEntity.all();
+        Vector<Project> v = new Vector<>(l);
+        return v;
     }
 
     @Override
     public Vector<Project> listProjects(Account owner) {
-        return ProjectEntity.all((AccountEntity)owner);
+        Vector<ProjectEntity> l = ProjectEntity.all((AccountEntity) owner);
+        Vector<Project> v = new Vector<>(l);
+        return v;
     }
 
     @Override
     public Vector<Ticket> listTickets(Project project) {
-        return TicketEntity.all((ProjectEntity)project);
+        Vector<TicketEntity> l = TicketEntity.all((ProjectEntity) project);
+        Vector<Ticket> v = new Vector<>(l);
+        return v;
+
     }
 
     @Override
     public Vector<Ticket> listTickets(Project project, Account assignedTo) {
-        return TicketEntity.all((ProjectEntity)project, (AccountEntity)assignedTo);
+        Vector<TicketEntity> l = TicketEntity.all((ProjectEntity) project, (AccountEntity) assignedTo);
+        Vector<Ticket> v = new Vector<>(l);
+        return v;
     }
-    */
+
     @Override
     public Ticket createTicket(String title, String description, int status, int priority, Account owner, Project project, Date due) throws TicketExistsException {
         TicketEntity t = new TicketEntity(title, description, status, priority, project, owner, due);
@@ -78,7 +90,7 @@ public class KanbanManagerEngine extends UnicastRemoteObject implements KanbanMa
 
     @Override
     public Ticket updateTicket(Ticket ticket) throws TicketExistsException {
-        ((TicketEntity)ticket).save();
+        ((TicketEntity) ticket).save();
         return ticket;
     }
 }
