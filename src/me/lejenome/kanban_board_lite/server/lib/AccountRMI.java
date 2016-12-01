@@ -1,4 +1,4 @@
-package me.lejenome.kanban_board_lite.server;
+package me.lejenome.kanban_board_lite.server.lib;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
