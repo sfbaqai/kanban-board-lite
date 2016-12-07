@@ -1,12 +1,13 @@
 CREATE TABLE IF NOT EXISTS Account (
-	id Integer Unsigned Auto_Increment,
-	first_name Varchar(40) NOT NULL,
-	last_name Varchar(40) NOT NULL,
-	email Varchar(100) UNIQUE NOT NULL,
-	password Varbinary(64) NOT NULL, -- Password Hash using PBKDF2 Hmac SHA512
-	salt Varbinary(64) NOT NULL, -- Password Hash Salt
+  id         INTEGER UNSIGNED    NOT NULL AUTO_INCREMENT,
+  first_name VARCHAR(40)         NOT NULL,
+  last_name  VARCHAR(40)         NOT NULL,
+  email      VARCHAR(100) UNIQUE NOT NULL,
+  password   VARBINARY(64)       NOT NULL, -- Password Hash using PBKDF2 Hmac SHA512
+  salt       VARBINARY(64)       NOT NULL, -- Password Hash Salt
 	PRIMARY KEY (id),
-	INDEX (email)
+  UNIQUE KEY uk_email (email),
+  KEY k_email (email)
 );
 
 CREATE TABLE IF NOT EXISTS Project (

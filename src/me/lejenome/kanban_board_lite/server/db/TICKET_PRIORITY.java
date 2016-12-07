@@ -5,9 +5,6 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.util.HashMap;
 
-/**
- * Created by lejenome on 11/29/16.
- */
 public class TICKET_PRIORITY {
     private static HashMap<Integer, String> vals;
 

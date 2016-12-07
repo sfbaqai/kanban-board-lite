@@ -1,5 +1,6 @@
 package me.lejenome.kanban_board_lite.client;
 
+import javafx.application.Application;
 import me.lejenome.kanban_board_lite.common.*;
 
 import java.net.MalformedURLException;
@@ -7,33 +8,36 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
-public class RMIClient {
+public class RmiClient {
+    public static KanbanManager kanbanManager;
     public static void main(String[] args) throws RemoteException, NotBoundException, MalformedURLException {
-        KanbanManager km = (KanbanManager) Naming.lookup("//localhost/KanbanManager");
 
+        kanbanManager = (KanbanManager) Naming.lookup("//localhost/KanbanManager");
+
+        Application.launch(App.class);
         try {
-            Account acc = km.register("moez", "bouhlel", "bmoez.j@gmail.com", "testtest");
+            Account acc = kanbanManager.register("moez", "bouhlel", "bmoez.j@gmail.com", "testtest");
             System.out.println("Register: " + acc);
         } catch (AccountExistsException e) {
             System.out.println("Account (bmoez.j@gmail.com) Already Exists!");
         }
 
         try {
-            Account acc3 = km.authenticate("bmoez.j@gmail.com", "testtest");
+            Account acc3 = kanbanManager.authenticate("bmoez.j@gmail.com", "testtest");
             System.out.println("Authenticate: " + acc3);
-            Project p = km.createProject("roadmap", "Roadmap or Porject", acc3, null);
+            Project p = kanbanManager.createProject("roadmap", "Roadmap or Porject", acc3, null);
             System.out.println("Create Project: " + p);
         } catch (AccountNotFoundException | AuthenticationException | ProjectExistsException e) {
         }
 
         try {
-            Project p2 = km.getProject(1);
+            Project p2 = kanbanManager.getProject(1);
             System.out.println("Get Project: " + p2);
         } catch (ProjectNotFoundException e) {
         }
 
         System.out.println("List Projects:");
-        for (Project pe : km.listProjects())
+        for (Project pe : kanbanManager.listProjects())
             System.out.println("+ " + pe);
 
         /*
