@@ -51,8 +51,8 @@ public class TicketEditController extends NodeController {
 
         status.setButtonCell(new CheckBoxCellRenderer(TICKET_STATUS));
         status.setCellFactory(param -> new CheckBoxCellRenderer(TICKET_STATUS));
-        priority.setButtonCell(new CheckBoxCellRenderer(TICKET_PRIORITY));
-        priority.setCellFactory(param -> new CheckBoxCellRenderer(TICKET_PRIORITY));
+        priority.setButtonCell(new CheckBoxCellRenderer(TICKET_PRIORITY, 100));
+        priority.setCellFactory(param -> new CheckBoxCellRenderer(TICKET_PRIORITY, 100));
 
         status.setItems(FXCollections.observableArrayList(TICKET_STATUS.keySet()));
         priority.setItems(FXCollections.observableArrayList(TICKET_PRIORITY.keySet()));
@@ -110,16 +110,32 @@ public class TicketEditController extends NodeController {
 
     class CheckBoxCellRenderer extends ListCell<Integer> {
         private final HashMap<Integer, String> map;
+        private final int colorTo;
 
         public CheckBoxCellRenderer(HashMap<Integer, String> map) {
+            this(map, 0);
+        }
+
+        public CheckBoxCellRenderer(HashMap<Integer, String> map, int colorTo) {
             this.map = map;
+            this.colorTo = colorTo;
         }
 
         @Override
         protected void updateItem(Integer key, boolean empty) {
             super.updateItem(key, empty);
             if (key != null || empty) setText(map.get(key));
-        }
+            if (colorTo > 0 && key != null) {
+                if (key < colorTo / 4)
+                    this.setStyle("-fx-border-color: green; -fx-border-width: 0 0 3 0;");
+                else if (key < colorTo / 2)
+                    this.setStyle("-fx-border-color: powderblue; -fx-border-width: 0 0 3 0;");
+                else if (key < (colorTo / 4) * 3)
+                    this.setStyle("-fx-border-color: coral; -fx-border-width: 0 0 3 0;");
+                else
+                    this.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
+            }
 
+        }
     }
 }
