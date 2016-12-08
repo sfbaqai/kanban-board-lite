@@ -57,6 +57,7 @@ public class TicketController extends NodeController {
         TicketEditController ctrl = (TicketEditController) app.load("boards/ticket.fxml", stage);
         ctrl.setTicket(focused.getSelectionModel().getSelectedItem());
         ctrl.setProject(project);
+        ctrl.setProjectBoard(this);
         stage.show();
     }
 
@@ -68,9 +69,7 @@ public class TicketController extends NodeController {
     public void add(ActionEvent actionEvent) {
         Stage stage = new Stage();
         TicketEditController ctrl = (TicketEditController) app.load("boards/ticket.fxml", stage);
-        ;
         ctrl.setProject(project);
-        ctrl.setStage(stage);
         ctrl.setProjectBoard(this);
         stage.show();
     }

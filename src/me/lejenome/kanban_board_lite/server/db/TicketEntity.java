@@ -40,7 +40,7 @@ public class TicketEntity implements Ticket {
                 id, Types.INTEGER)) {
 
             res.next();
-            t = new TicketEntity(res.getString("title"), res.getString("description"), res.getInt("status"), res.getInt("priority"), res.getInt("project"), res.getInt("assigned_to"), res.getDate("due"));
+            t = new TicketEntity(res.getString("title"), res.getString("description"), res.getInt("status"), res.getInt("priority"), res.getInt("project"), (Integer) res.getObject("assigned_to"), res.getDate("due"));
             t.id = id;
             return t;
         } catch (SQLException e) {
@@ -55,7 +55,7 @@ public class TicketEntity implements Ticket {
                 p.getId(), Types.INTEGER)) {
             while (res.next()) {
                 TicketEntity t;
-                t = new TicketEntity(res.getString("title"), res.getString("description"), res.getInt("status"), res.getInt("priority"), res.getInt("project"), res.getInt("assigned_to"), res.getDate("due"));
+                t = new TicketEntity(res.getString("title"), res.getString("description"), res.getInt("status"), res.getInt("priority"), res.getInt("project"), (Integer) res.getObject("assigned_to"), res.getDate("due"));
                 t.id = res.getInt("id");
                 v.add(t);
             }
@@ -88,7 +88,7 @@ public class TicketEntity implements Ticket {
     public void save() throws TicketExistsException {
         if (id > 0) {
             try {
-                Connection.execute("Update Ticket Set title = ?, description = ?, status = ?, priority = ?, assigned_to = ?, du = ? WHERE id = ?",
+                Connection.execute("Update Ticket Set title = ?, description = ?, status = ?, priority = ?, assigned_to = ?, due = ? WHERE id = ?",
                         title, Types.VARCHAR,
                         description, Types.VARCHAR,
                         status, Types.SMALLINT,
@@ -97,7 +97,8 @@ public class TicketEntity implements Ticket {
                         due, Types.DATE,
                         id, Types.INTEGER);
             } catch (SQLException e) {
-                throw new RuntimeException();
+                e.printStackTrace();
+                throw new RuntimeException(e);
             }
         } else {
             try {

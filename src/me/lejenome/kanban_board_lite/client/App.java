@@ -56,6 +56,7 @@ public class App extends Application {
         stage.sizeToScene();
         NodeController controller = (NodeController) loader.getController();
         controller.setApp(this);
+        controller.setStage(stage);
         return controller;
     }
 

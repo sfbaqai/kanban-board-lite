@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="05d71d30-b54f-4a98-91d4-5afa226dee57" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.classpath" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kanban-board-lite.eml" />
+    <list default="true" id="05d71d30-b54f-4a98-91d4-5afa226dee57" name="Default" comment="fix edit/add ticket stage">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kanban-board-lite.iml" afterPath="$PROJECT_DIR$/kanban-board-lite.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/client/App.java" afterPath="$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/client/App.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/client/NodeController.java" afterPath="$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/client/NodeController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/client/boards/TicketController.java" afterPath="$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/client/boards/TicketController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/client/boards/TicketEditController.java" afterPath="$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/client/boards/TicketEditController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/server/db/TicketEntity.java" afterPath="$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/server/db/TicketEntity.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -42,11 +44,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="TicketController.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="TicketController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/client/boards/TicketController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="836">
-              <caret line="57" column="0" lean-forward="false" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
+            <state relative-caret-position="-60">
+              <caret line="59" column="35" lean-forward="false" selection-start-line="59" selection-start-column="35" selection-end-line="59" selection-end-column="35" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -54,28 +56,13 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ticket.fxml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/client/boards/ticket.fxml">
-          <provider editor-type-id="text-editor">
-            <state relative-caret-position="368">
-              <caret line="59" column="22" lean-forward="false" selection-start-line="59" selection-start-column="22" selection-end-line="59" selection-end-column="22" />
-              <folding>
-                <marker date="1481206023790" expanded="true" signature="3395:3420" ph="..." />
-              </folding>
-            </state>
-          </provider>
-          <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="LoginController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/client/authentication/LoginController.java">
+      <file leaf-file-name="App.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/client/App.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+            <state relative-caret-position="561">
+              <caret line="58" column="23" lean-forward="true" selection-start-line="58" selection-start-column="23" selection-end-line="58" selection-end-column="23" />
               <folding>
-                <element signature="imports" expanded="false" />
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -93,54 +80,38 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TicketEditController.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="TicketEditController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/client/boards/TicketEditController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="116">
-              <caret line="54" column="58" lean-forward="false" selection-start-line="54" selection-start-column="58" selection-end-line="54" selection-end-column="58" />
+            <state relative-caret-position="733">
+              <caret line="107" column="25" lean-forward="false" selection-start-line="107" selection-start-column="13" selection-end-line="107" selection-end-column="25" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#3750#3751#0" expanded="true" />
+                <element signature="e#3802#3803#0" expanded="true" />
+                <element signature="e#3983#3984#0" expanded="true" />
+                <element signature="e#4021#4022#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="login.fxml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/client/authentication/login.fxml">
-          <provider editor-type-id="text-editor">
-            <state relative-caret-position="260">
-              <caret line="42" column="27" lean-forward="false" selection-start-line="42" selection-start-column="27" selection-end-line="42" selection-end-column="27" />
+      <file leaf-file-name="Account.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/common/Account.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="4" column="17" lean-forward="false" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
               <folding />
             </state>
-          </provider>
-          <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
-            <state />
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="register.fxml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/client/authentication/register.fxml">
-          <provider editor-type-id="text-editor">
-            <state relative-caret-position="368">
-              <caret line="33" column="12" lean-forward="false" selection-start-line="33" selection-start-column="12" selection-end-line="33" selection-end-column="12" />
+      <file leaf-file-name="KanbanManagerEngine.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/server/KanbanManagerEngine.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="133">
+              <caret line="91" column="0" lean-forward="false" selection-start-line="91" selection-start-column="0" selection-end-line="91" selection-end-column="0" />
               <folding />
             </state>
-          </provider>
-          <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="projects.fxml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/client/boards/projects.fxml">
-          <provider editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="13" column="81" lean-forward="false" selection-start-line="13" selection-start-column="81" selection-end-line="13" selection-end-column="81" />
-              <folding />
-            </state>
-          </provider>
-          <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
-            <state />
           </provider>
         </entry>
       </file>
@@ -222,20 +193,20 @@
         <option value="$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/server/db/Connection.java" />
         <option value="$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/client/authentication/login.fxml" />
         <option value="$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/client/authentication/register.fxml" />
-        <option value="$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/client/NodeController.java" />
         <option value="$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/client/authentication/RegisterController.java" />
         <option value="$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/client/authentication/LoginController.java" />
-        <option value="$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/client/App.java" />
         <option value="$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/common/KanbanManager.java" />
         <option value="$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/server/KanbanManagerEngine.java" />
-        <option value="$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/server/db/TicketEntity.java" />
         <option value="$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/client/boards/tickets.fxml" />
         <option value="$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/client/boards/ProjectController.java" />
         <option value="$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/client/RmiClient.java" />
-        <option value="$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/client/boards/TicketController.java" />
         <option value="$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/client/boards/projects.fxml" />
         <option value="$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/client/boards/ticket.fxml" />
+        <option value="$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/server/db/TicketEntity.java" />
+        <option value="$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/client/App.java" />
+        <option value="$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/client/NodeController.java" />
         <option value="$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/client/boards/TicketEditController.java" />
+        <option value="$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/client/boards/TicketController.java" />
       </list>
     </option>
   </component>
@@ -1314,7 +1285,7 @@
       <workItem from="1481115648517" duration="5432000" />
       <workItem from="1481147323096" duration="5959000" />
       <workItem from="1481179618179" duration="11248000" />
-      <workItem from="1481194598246" duration="7207000" />
+      <workItem from="1481194598246" duration="14527000" />
     </task>
     <task id="LOCAL-00001" summary="add Project class">
       <created>1480358389318</created>
@@ -1337,11 +1308,18 @@
       <option name="project" value="LOCAL" />
       <updated>1481206044700</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="add initial boards scenes">
+      <created>1481206759758</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1481206759758</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="116904000" />
+    <option name="totallyTimeSpent" value="124224000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1354,24 +1332,24 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="3" width="1366" height="765" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32978722" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32978722" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32978722" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32978722" sideWeight="0.5030257" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31458968" sideWeight="0.4969743" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31458968" sideWeight="0.4969743" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.11951589" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.11951589" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.571205" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.15128593" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1428,7 +1406,8 @@
     <MESSAGE value="add Project class" />
     <MESSAGE value="add initial Login/Register JavaFX Windows&#10;add Socket Client/Server demo" />
     <MESSAGE value="add initial boards scenes" />
-    <option name="LAST_COMMIT_MESSAGE" value="add initial boards scenes" />
+    <MESSAGE value="fix edit/add ticket stage" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix edit/add ticket stage" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
@@ -1444,32 +1423,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/client/LoginController.java" />
-    <entry file="file://$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/client/authentication/app.java" />
-    <entry file="uml://DATABASE/b0cd5161-d4aa-488f-94a2-598aa70eba42">
-      <provider selected="true" editor-type-id="UmlEditorProvider">
-        <state>
-          <ID>DATABASE</ID>
-          <OriginalElement>b0cd5161-d4aa-488f-94a2-598aa70eba42</OriginalElement>
-          <nodes>
-            <node x="" y="">b0cd5161-d4aa-488f-94a2-598aa70eba42.TABLE:distributed.project</node>
-            <node x="" y="">b0cd5161-d4aa-488f-94a2-598aa70eba42.TABLE:distributed.account</node>
-            <node x="" y="">b0cd5161-d4aa-488f-94a2-598aa70eba42.TABLE:distributed.ticket</node>
-            <node x="" y="">b0cd5161-d4aa-488f-94a2-598aa70eba42.TABLE:distributed.ticket_priority</node>
-            <node x="" y="">b0cd5161-d4aa-488f-94a2-598aa70eba42.TABLE:distributed.ticket_status</node>
-          </nodes>
-          <notes />
-          <edges />
-          <settings layout="Hierarchic Group" zoom="0.6021840873634945" x="374.0" y="311.0" />
-          <SelectedNodes />
-          <Categories>
-            <Category>Columns</Category>
-            <Category>Key columns</Category>
-          </Categories>
-          <SCOPE>All</SCOPE>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../../.local/share/Java/.IntelliJIdea2016.3/config/consoles/db/b0cd5161-d4aa-488f-94a2-598aa70eba42/console.sql" />
     <entry file="dbDummy://dbtable:/82d7e71b/b0cd5161-d4aa-488f-94a2-598aa70eba42/distributed.ticket_status" />
     <entry file="dbDummy://dbtable:/82d7e71b/b0cd5161-d4aa-488f-94a2-598aa70eba42/distributed.ticket_priority" />
@@ -1569,22 +1522,11 @@
     <entry file="file://$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/server/lib/Account.java" />
     <entry file="file://$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/server/lib/Project.java" />
     <entry file="file://$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/server/lib/AccountRMI.java" />
-    <entry file="file://$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/client/NodeController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#291#292#0" expanded="true" />
-            <element signature="e#321#322#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///usr/lib/jvm/default/javafx-src.zip!/javafx/application/Application.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-4447">
           <caret line="144" column="22" lean-forward="false" selection-start-line="144" selection-start-column="22" selection-end-line="144" selection-end-column="22" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1635,17 +1577,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/client/App.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="35" column="54" lean-forward="true" selection-start-line="35" selection-start-column="54" selection-end-line="35" selection-end-column="54" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1621#1622#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="dbDummy://dbtable:/ee8f982d/1c6cbcf6-b9ed-4060-94be-df7482212661/distributed.Ticket">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
@@ -1666,37 +1597,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/server/db/TicketEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="54" column="0" lean-forward="false" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/server/KanbanManagerEngine.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="69" column="0" lean-forward="false" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/client/RmiClient.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="24" column="0" lean-forward="true" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/client/authentication/LoginController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1715,18 +1620,29 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/common/KanbanManager.java">
+    <entry file="file://$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/client/boards/projects.fxml">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="13" column="81" lean-forward="false" selection-start-line="13" selection-start-column="81" selection-end-line="13" selection-end-column="81" />
+          <folding />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+    </entry>
+    <entry file="jar:///usr/lib/jvm/default/javafx-src.zip!/javafx/scene/control/ListCell.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="37" column="29" lean-forward="false" selection-start-line="37" selection-start-column="29" selection-end-line="37" selection-end-column="29" />
+        <state relative-caret-position="-7200">
+          <caret line="82" column="11" lean-forward="false" selection-start-line="82" selection-start-column="11" selection-end-line="82" selection-end-column="11" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/client/boards/TicketController.java">
+    <entry file="file://$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/client/boards/ProjectController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="836">
-          <caret line="57" column="0" lean-forward="false" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
+        <state relative-caret-position="195">
+          <caret line="13" column="13" lean-forward="false" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1755,15 +1671,52 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/client/boards/projects.fxml">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="13" column="81" lean-forward="false" selection-start-line="13" selection-start-column="81" selection-end-line="13" selection-end-column="81" />
+    <entry file="file://$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/server/KanbanManagerEngine.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="91" column="0" lean-forward="false" selection-start-line="91" selection-start-column="0" selection-end-line="91" selection-end-column="0" />
           <folding />
         </state>
       </provider>
-      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
-        <state />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/common/Account.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="17" lean-forward="false" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/server/db/TicketEntity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="57" column="16" lean-forward="false" selection-start-line="57" selection-start-column="16" selection-end-line="57" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/client/authentication/LoginController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/common/Ticket.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-199">
+          <caret line="8" column="17" lean-forward="false" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/common/KanbanManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="32" column="29" lean-forward="false" selection-start-line="32" selection-start-column="29" selection-end-line="32" selection-end-column="29" />
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/client/boards/ticket.fxml">
@@ -1779,10 +1732,22 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/client/boards/ProjectController.java">
+    <entry file="file://$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/client/NodeController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="13" lean-forward="false" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+        <state relative-caret-position="240">
+          <caret line="18" column="27" lean-forward="false" selection-start-line="18" selection-start-column="27" selection-end-line="18" selection-end-column="27" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#416#417#0" expanded="true" />
+            <element signature="e#450#451#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/client/App.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="561">
+          <caret line="58" column="23" lean-forward="true" selection-start-line="58" selection-start-column="23" selection-end-line="58" selection-end-column="23" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1791,8 +1756,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/client/boards/TicketEditController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="116">
-          <caret line="54" column="58" lean-forward="false" selection-start-line="54" selection-start-column="58" selection-end-line="54" selection-end-column="58" />
+        <state relative-caret-position="733">
+          <caret line="107" column="25" lean-forward="false" selection-start-line="107" selection-start-column="13" selection-end-line="107" selection-end-column="25" />
+          <folding>
+            <element signature="e#3750#3751#0" expanded="true" />
+            <element signature="e#3802#3803#0" expanded="true" />
+            <element signature="e#3983#3984#0" expanded="true" />
+            <element signature="e#4021#4022#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/me/lejenome/kanban_board_lite/client/boards/TicketController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-60">
+          <caret line="59" column="35" lean-forward="false" selection-start-line="59" selection-start-column="35" selection-end-line="59" selection-end-column="35" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

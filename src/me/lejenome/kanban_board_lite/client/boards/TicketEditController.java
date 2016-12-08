@@ -3,11 +3,7 @@ package me.lejenome.kanban_board_lite.client.boards;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.stage.Stage;
+import javafx.scene.control.*;
 import me.lejenome.kanban_board_lite.client.NodeController;
 import me.lejenome.kanban_board_lite.client.RmiClient;
 import me.lejenome.kanban_board_lite.common.Project;
@@ -29,10 +25,11 @@ public class TicketEditController extends NodeController {
     TextField title;
     @FXML
     TextArea description;
+
     @FXML
-    ComboBox<String> status;
+    ComboBox<Integer> status;
     @FXML
-    ComboBox<String> priority;
+    ComboBox<Integer> priority;
     @FXML
     DatePicker due;
     private Ticket ticket;
@@ -40,7 +37,6 @@ public class TicketEditController extends NodeController {
     private HashMap<Integer, String> TICKET_STATUS;
     private HashMap<Integer, String> TICKET_PRIORITY;
 
-    private Stage stage;
     private TicketController projectBoard;
 
 
@@ -52,16 +48,22 @@ public class TicketEditController extends NodeController {
         } catch (RemoteException e) {
             e.printStackTrace();
         }
-        status.setItems(FXCollections.observableArrayList(TICKET_STATUS.values()));
-        priority.setItems(FXCollections.observableArrayList(TICKET_PRIORITY.values()));
-        status.getSelectionModel().select(TICKET_STATUS.get(0));
-        priority.getSelectionModel().select(TICKET_PRIORITY.get(10));
+
+        status.setButtonCell(new CheckBoxCellRenderer(TICKET_STATUS));
+        status.setCellFactory(param -> new CheckBoxCellRenderer(TICKET_STATUS));
+        priority.setButtonCell(new CheckBoxCellRenderer(TICKET_PRIORITY));
+        priority.setCellFactory(param -> new CheckBoxCellRenderer(TICKET_PRIORITY));
+
+        status.setItems(FXCollections.observableArrayList(TICKET_STATUS.keySet()));
+        priority.setItems(FXCollections.observableArrayList(TICKET_PRIORITY.keySet()));
+        status.getSelectionModel().select(Integer.valueOf(0));
+        priority.getSelectionModel().select(Integer.valueOf(10));
     }
 
     public void save(ActionEvent actionEvent) {
         if (ticket == null) {
             try {
-                RmiClient.kanbanManager.createTicket(title.getText(), description.getText(), 0, 10, null, project, null);
+                RmiClient.kanbanManager.createTicket(title.getText(), description.getText(), status.getSelectionModel().getSelectedItem(), priority.getSelectionModel().getSelectedItem(), null, project, null);
                 stage.close();
                 projectBoard.refresh(null);
             } catch (RemoteException e) {
@@ -84,6 +86,7 @@ public class TicketEditController extends NodeController {
         }
     }
 
+
     public void cancel(ActionEvent actionEvent) {
     }
 
@@ -91,8 +94,8 @@ public class TicketEditController extends NodeController {
         this.ticket = ticket;
         title.setText(ticket.getTitle());
         description.setText(ticket.getDescription());
-        status.getSelectionModel().select(TICKET_STATUS.get(ticket.getStatus()));
-        priority.getSelectionModel().select(TICKET_PRIORITY.get(ticket.getPriority()));
+        status.getSelectionModel().select(Integer.valueOf(ticket.getStatus()));
+        priority.getSelectionModel().select(Integer.valueOf(ticket.getPriority()));
         if (ticket.getDue() != null)
             due.setValue(LocalDate.ofEpochDay(ticket.getDue().getTime()));
     }
@@ -101,11 +104,22 @@ public class TicketEditController extends NodeController {
         this.project = project;
     }
 
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
-
     public void setProjectBoard(TicketController ticketController) {
         this.projectBoard = ticketController;
+    }
+
+    class CheckBoxCellRenderer extends ListCell<Integer> {
+        private final HashMap<Integer, String> map;
+
+        public CheckBoxCellRenderer(HashMap<Integer, String> map) {
+            this.map = map;
+        }
+
+        @Override
+        protected void updateItem(Integer key, boolean empty) {
+            super.updateItem(key, empty);
+            if (key != null || empty) setText(map.get(key));
+        }
+
     }
 }
