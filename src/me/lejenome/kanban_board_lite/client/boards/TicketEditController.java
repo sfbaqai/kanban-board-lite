@@ -13,6 +13,7 @@ import me.lejenome.kanban_board_lite.common.TicketExistsException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
@@ -75,6 +76,12 @@ public class TicketEditController extends NodeController {
             try {
                 ticket.setTitle(title.getText());
                 ticket.setDescription(description.getText());
+                ticket.setStatus(status.getSelectionModel().getSelectedItem());
+                ticket.setPriority(priority.getSelectionModel().getSelectedItem());
+                if(due.getValue() != null)
+                    ticket.setDue(new Date(due.getValue().toEpochDay()));
+                else
+                    ticket.setDue(null);
                 RmiClient.kanbanManager.updateTicket(ticket);
                 stage.close();
                 projectBoard.refresh(null);
@@ -124,7 +131,7 @@ public class TicketEditController extends NodeController {
         @Override
         protected void updateItem(Integer key, boolean empty) {
             super.updateItem(key, empty);
-            if (key != null || empty) setText(map.get(key));
+            if (key != null) setText(map.get(key));
             if (colorTo > 0 && key != null) {
                 if (key < colorTo / 4)
                     this.setStyle("-fx-border-color: green; -fx-border-width: 0 0 3 0;");

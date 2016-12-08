@@ -3,6 +3,7 @@ package me.lejenome.kanban_board_lite.client.boards;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
@@ -37,6 +38,11 @@ public class TicketController extends NodeController {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        backlogTickets.setCellFactory(param -> new ListCellRenderer());
+        readyTickets.setCellFactory(param -> new ListCellRenderer());
+        inProgressTickets.setCellFactory(param -> new ListCellRenderer());
+        doneTickets.setCellFactory(param -> new ListCellRenderer());
+
         backlogTickets.focusedProperty().addListener((e, a, b) -> {
             if (e.getValue()) focused = backlogTickets;
         });
@@ -100,6 +106,28 @@ public class TicketController extends NodeController {
             }
         } catch (RemoteException e) {
             e.printStackTrace();
+        }
+    }
+
+    class ListCellRenderer extends ListCell<Ticket> {
+
+        private final static int colorTo = 100;
+
+        @Override
+        protected void updateItem(Ticket ticket, boolean empty) {
+            super.updateItem(ticket, empty);
+            if (ticket != null) setText(ticket.getTitle());
+            if (colorTo > 0 && ticket != null) {
+                if (ticket.getPriority() < colorTo / 4)
+                    this.setStyle("-fx-border-color: green; -fx-border-width: 0 0 3 0;");
+                else if (ticket.getPriority() < colorTo / 2)
+                    this.setStyle("-fx-border-color: powderblue; -fx-border-width: 0 0 3 0;");
+                else if (ticket.getPriority() < (colorTo / 4) * 3)
+                    this.setStyle("-fx-border-color: coral; -fx-border-width: 0 0 3 0;");
+                else
+                    this.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
+            }
+
         }
     }
 }

@@ -28,7 +28,7 @@ public interface KanbanManager extends Remote {
 
     Vector<Ticket> listTickets(Project project, Account assignedTo) throws RemoteException;
 
-    Ticket createTicket(String title, String description, int status, int priority, Account owner, Project project, Date due) throws RemoteException, TicketExistsException;
+    Ticket createTicket(String title, String description, int status, int priority, Account assignedTo, Project project, Date due) throws RemoteException, TicketExistsException;
 
     Ticket updateTicket(Ticket ticket) throws RemoteException, TicketExistsException;
 
