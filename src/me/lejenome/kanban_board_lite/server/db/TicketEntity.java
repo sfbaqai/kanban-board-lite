@@ -16,14 +16,14 @@ public class TicketEntity implements Ticket {
     private int status;
     private int priority;
     private int projectId;
-    private int assignedToId;
+    private Integer assignedToId;
     private Date due;
 
     public TicketEntity(String title, String description, int status, int priority, Project project, Account assigned_to, Date due) {
-        this(title, description, status, priority, project.getId(), assigned_to.getId(), due);
+        this(title, description, status, priority, project.getId(), (assigned_to == null) ? null : assigned_to.getId(), due);
     }
 
-    public TicketEntity(String title, String description, int status, int priority, int project, int assigned_to, Date due) {
+    public TicketEntity(String title, String description, int status, int priority, int project, Integer assigned_to, Date due) {
         this.id = -1;
         this.title = title;
         this.description = description;
@@ -101,7 +101,7 @@ public class TicketEntity implements Ticket {
             }
         } else {
             try {
-                Connection.execute("Insert INTO Ticket (title, description, status, priority, project, assigned_to, due) Values (?, ?, ?, ?, ?, ?)",
+                Connection.execute("Insert INTO Ticket (title, description, status, priority, project, assigned_to, due) Values (?, ?, ?, ?, ?, ?, ?)",
                         title, Types.VARCHAR,
                         description, Types.VARCHAR,
                         status, Types.SMALLINT,
@@ -112,6 +112,7 @@ public class TicketEntity implements Ticket {
 
                 // TODO update id
             } catch (SQLException e) {
+                e.printStackTrace();
                 throw new TicketExistsException();
             }
         }

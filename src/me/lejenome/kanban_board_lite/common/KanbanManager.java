@@ -4,6 +4,7 @@ package me.lejenome.kanban_board_lite.common;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Vector;
 
 public interface KanbanManager extends Remote {
@@ -30,4 +31,8 @@ public interface KanbanManager extends Remote {
     Ticket createTicket(String title, String description, int status, int priority, Account owner, Project project, Date due) throws RemoteException, TicketExistsException;
 
     Ticket updateTicket(Ticket ticket) throws RemoteException, TicketExistsException;
+
+    HashMap<Integer, String> getStatus() throws RemoteException;
+
+    HashMap<Integer, String> getPriorities() throws RemoteException;
 }

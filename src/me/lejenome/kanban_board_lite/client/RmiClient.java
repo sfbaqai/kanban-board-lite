@@ -10,6 +10,7 @@ import java.rmi.RemoteException;
 
 public class RmiClient {
     public static KanbanManager kanbanManager;
+
     public static void main(String[] args) throws RemoteException, NotBoundException, MalformedURLException {
 
         kanbanManager = (KanbanManager) Naming.lookup("//localhost/KanbanManager");

@@ -1,13 +1,12 @@
 package me.lejenome.kanban_board_lite.server;
 
 import me.lejenome.kanban_board_lite.common.*;
-import me.lejenome.kanban_board_lite.server.db.AccountEntity;
-import me.lejenome.kanban_board_lite.server.db.ProjectEntity;
-import me.lejenome.kanban_board_lite.server.db.TicketEntity;
+import me.lejenome.kanban_board_lite.server.db.*;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Vector;
 
 public class KanbanManagerEngine extends UnicastRemoteObject implements KanbanManager {
@@ -92,5 +91,15 @@ public class KanbanManagerEngine extends UnicastRemoteObject implements KanbanMa
     public Ticket updateTicket(Ticket ticket) throws TicketExistsException {
         ((TicketEntity) ticket).save();
         return ticket;
+    }
+
+    @Override
+    public HashMap<Integer, String> getStatus() throws RemoteException {
+        return TICKET_STATUS.getInstance();
+    }
+
+    @Override
+    public HashMap<Integer, String> getPriorities() throws RemoteException {
+        return TICKET_PRIORITY.getInstance();
     }
 }
