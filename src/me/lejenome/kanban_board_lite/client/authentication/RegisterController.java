@@ -7,7 +7,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import me.lejenome.kanban_board_lite.client.NodeController;
 import me.lejenome.kanban_board_lite.client.RmiClient;
-import me.lejenome.kanban_board_lite.common.Account;
 import me.lejenome.kanban_board_lite.common.AccountExistsException;
 
 import java.net.URL;
@@ -34,7 +33,7 @@ public class RegisterController extends NodeController {
     public void register(ActionEvent actionEvent) {
         try {
             errorMessage.setText("");
-            Account acc = RmiClient.kanbanManager.register(firstName.getText(), lastName.getText(), email.getText(), password.getText());
+            RmiClient.account = RmiClient.kanbanManager.register(firstName.getText(), lastName.getText(), email.getText(), password.getText());
             app.load("boards/projects.fxml");
         } catch (RemoteException e) {
             e.printStackTrace();

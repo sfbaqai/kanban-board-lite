@@ -1,10 +1,10 @@
 package me.lejenome.kanban_board_lite.client.boards;
 
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.TilePane;
 import me.lejenome.kanban_board_lite.client.NodeController;
 import me.lejenome.kanban_board_lite.common.Project;
 
@@ -15,7 +15,10 @@ import java.util.Vector;
 public class ProjectController extends NodeController {
 
     @FXML
-    ListView<Project> projectsList;
+    TilePane projectsList;
+    @FXML
+    ScrollPane scrollPane;
+
     private Vector<Project> projects;
 
 
@@ -26,17 +29,14 @@ public class ProjectController extends NodeController {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        projectsList.setCellFactory(param -> new ListCellRenderer());
+        projectsList.prefWidthProperty().bind(scrollPane.widthProperty());
     }
 
     public void refresh(ActionEvent actionEvent) {
-        projectsList.setItems(FXCollections.observableArrayList(projects));
-    }
-
-    public void view(ActionEvent actionEvent) {
-        Project p = projectsList.getSelectionModel().getSelectedItem();
-        TicketController ctrl = (TicketController) app.load("boards/tickets.fxml");
-        ctrl.setProject(p);
+        projectsList.getChildren().clear();
+        for (Project p : projects) {
+            projectsList.getChildren().add(new ProjectItem(p));
+        }
     }
 
     class ListCellRenderer extends ListCell<Project> {

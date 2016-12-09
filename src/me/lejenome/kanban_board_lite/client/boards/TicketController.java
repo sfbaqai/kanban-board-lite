@@ -7,6 +7,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import me.lejenome.kanban_board_lite.client.App;
 import me.lejenome.kanban_board_lite.client.NodeController;
 import me.lejenome.kanban_board_lite.client.RmiClient;
 import me.lejenome.kanban_board_lite.common.Project;
@@ -17,9 +18,6 @@ import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 import java.util.Vector;
 
-/**
- * Created by lejenome on 12/8/16.
- */
 public class TicketController extends NodeController {
 
     @FXML
@@ -55,12 +53,28 @@ public class TicketController extends NodeController {
         doneTickets.focusedProperty().addListener((e, a, b) -> {
             if (e.getValue()) focused = doneTickets;
         });
+        backlogTickets.setOnMouseClicked(e -> {
+            if (e.getClickCount() == 2)
+                edit(null);
+        });
+        readyTickets.setOnMouseClicked(e -> {
+            if (e.getClickCount() == 2)
+                edit(null);
+        });
+        inProgressTickets.setOnMouseClicked(e -> {
+            if (e.getClickCount() == 2)
+                edit(null);
+        });
+        doneTickets.setOnMouseClicked(e -> {
+            if (e.getClickCount() == 2)
+                edit(null);
+        });
     }
 
 
     public void edit(ActionEvent actionEvent) {
         Stage stage = new Stage();
-        TicketEditController ctrl = (TicketEditController) app.load("boards/ticket.fxml", stage);
+        TicketEditController ctrl = (TicketEditController) App.Load("boards/ticket.fxml", stage);
         ctrl.setTicket(focused.getSelectionModel().getSelectedItem());
         ctrl.setProject(project);
         ctrl.setProjectBoard(this);
@@ -74,7 +88,7 @@ public class TicketController extends NodeController {
 
     public void add(ActionEvent actionEvent) {
         Stage stage = new Stage();
-        TicketEditController ctrl = (TicketEditController) app.load("boards/ticket.fxml", stage);
+        TicketEditController ctrl = (TicketEditController) App.Load("boards/ticket.fxml", stage);
         ctrl.setProject(project);
         ctrl.setProjectBoard(this);
         stage.show();

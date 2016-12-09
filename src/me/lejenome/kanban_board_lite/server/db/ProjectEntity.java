@@ -97,9 +97,10 @@ public class ProjectEntity implements Project {
             try {
                 Connection.execute("Update Project SET name = ?, description = ?, owner = ?, parent = ? WHERE id = ?",
                         name, Types.VARCHAR,
-                        description, Types.VARBINARY,
+                        description, Types.VARCHAR,
                         ownerId, Types.INTEGER,
-                        (parentId > 0) ? parentId : null, Types.INTEGER);
+                        (parentId > 0) ? parentId : null, Types.INTEGER,
+                        id, Types.INTEGER);
             } catch (SQLException e) {
                 e.printStackTrace();
                 throw new RuntimeException();
