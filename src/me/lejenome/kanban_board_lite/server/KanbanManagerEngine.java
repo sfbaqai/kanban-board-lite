@@ -94,6 +94,11 @@ public class KanbanManagerEngine extends UnicastRemoteObject implements KanbanMa
     }
 
     @Override
+    public Ticket getTicket(int id) throws RemoteException, TicketNotFoundException {
+        return TicketEntity.get(id);
+    }
+
+    @Override
     public HashMap<Integer, Integer> ticketChart() throws RemoteException {
         return TicketEntity.chart();
     }

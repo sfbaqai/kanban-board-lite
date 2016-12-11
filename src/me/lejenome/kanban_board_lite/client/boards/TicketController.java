@@ -1,10 +1,16 @@
 package me.lejenome.kanban_board_lite.client.boards;
 
+import com.sun.javafx.scene.control.skin.ListViewSkin;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import me.lejenome.kanban_board_lite.client.App;
@@ -12,11 +18,11 @@ import me.lejenome.kanban_board_lite.client.NodeController;
 import me.lejenome.kanban_board_lite.client.RmiClient;
 import me.lejenome.kanban_board_lite.common.Project;
 import me.lejenome.kanban_board_lite.common.Ticket;
+import me.lejenome.kanban_board_lite.common.TicketNotFoundException;
 
 import java.net.URL;
 import java.rmi.RemoteException;
-import java.util.ResourceBundle;
-import java.util.Vector;
+import java.util.*;
 
 public class TicketController extends NodeController {
 
@@ -31,44 +37,75 @@ public class TicketController extends NodeController {
     @FXML
     ListView<Ticket> doneTickets;
     ListView<Ticket> focused = backlogTickets;
+    ListView<Ticket> dragSource;
+    HashMap<Integer, ListView<Ticket>> boards;
+    HashMap<Integer, ObservableList<Ticket>> lists;
     private Vector<Ticket> tickets;
     private Project project;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        backlogTickets.setCellFactory(param -> new ListCellRenderer());
-        readyTickets.setCellFactory(param -> new ListCellRenderer());
-        inProgressTickets.setCellFactory(param -> new ListCellRenderer());
-        doneTickets.setCellFactory(param -> new ListCellRenderer());
+        boards = new HashMap<>();
+        lists = new HashMap<>();
+        boards.put(0, backlogTickets);
+        boards.put(3, readyTickets);
+        boards.put(6, inProgressTickets);
+        boards.put(9, doneTickets);
 
-        backlogTickets.focusedProperty().addListener((e, a, b) -> {
-            if (e.getValue()) focused = backlogTickets;
-        });
-        readyTickets.focusedProperty().addListener((e, a, b) -> {
-            if (e.getValue()) focused = readyTickets;
-        });
-        inProgressTickets.focusedProperty().addListener((e, a, b) -> {
-            if (e.getValue()) focused = inProgressTickets;
-        });
-        doneTickets.focusedProperty().addListener((e, a, b) -> {
-            if (e.getValue()) focused = doneTickets;
-        });
-        backlogTickets.setOnMouseClicked(e -> {
-            if (e.getClickCount() == 2)
-                edit(null);
-        });
-        readyTickets.setOnMouseClicked(e -> {
-            if (e.getClickCount() == 2)
-                edit(null);
-        });
-        inProgressTickets.setOnMouseClicked(e -> {
-            if (e.getClickCount() == 2)
-                edit(null);
-        });
-        doneTickets.setOnMouseClicked(e -> {
-            if (e.getClickCount() == 2)
-                edit(null);
-        });
+        for (Map.Entry<Integer, ListView<Ticket>> entry : boards.entrySet()) {
+            ListView<Ticket> board = entry.getValue();
+            board.setSkin(new ListViewSkinTicket(board));
+            board.focusedProperty().addListener((e, a, b) -> {
+                if (e.getValue()) focused = board;
+            });
+            board.setOnMouseClicked(e -> {
+                if (e.getClickCount() == 2)
+                    edit(null);
+            });
+            board.setCellFactory(param -> {
+                ListCellRenderer cell = new ListCellRenderer();
+                cell.setOnDragDetected(e -> {
+                    if (cell.getItem() != null) {
+                        dragSource = cell.getListView();
+                        Dragboard db = cell.startDragAndDrop(TransferMode.MOVE);
+                        ClipboardContent ctnt = new ClipboardContent();
+                        ctnt.putString(String.valueOf(cell.getItem().getId()));
+                        db.setContent(ctnt);
+                    }
+                    e.consume();
+                });
+
+                cell.setOnDragDone(e -> {
+                    lists.get(entry.getKey()).remove(cell.getIndex());
+                    ((ListViewSkinTicket) board.getSkin()).refresh();
+                });
+
+                return cell;
+            });
+            board.setOnDragOver(e -> {
+                if (dragSource != board && e.getDragboard().hasString()) {
+                    e.acceptTransferModes(TransferMode.MOVE);
+                }
+                e.consume();
+            });
+            board.setOnDragDropped(e -> {
+                Dragboard db = e.getDragboard();
+                boolean success = false;
+                if (db.hasString()) {
+                    try {
+                        lists.get(entry.getKey()).add(RmiClient.kanbanManager.getTicket(Integer.parseInt(db.getString())));
+                        success = true;
+                    } catch (RemoteException e1) {
+                        e1.printStackTrace();
+                    } catch (TicketNotFoundException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+                e.setDropCompleted(success);
+                e.consume();
+            });
+        }
+
     }
 
 
@@ -97,26 +134,24 @@ public class TicketController extends NodeController {
     public void refresh(ActionEvent actionEvent) {
         try {
             this.tickets = RmiClient.kanbanManager.listTickets(project);
-            backlogTickets.setItems(FXCollections.observableArrayList());
-            readyTickets.setItems(FXCollections.observableArrayList());
-            inProgressTickets.setItems(FXCollections.observableArrayList());
-            doneTickets.setItems(FXCollections.observableArrayList());
-            for (Ticket t : tickets) {
-                switch (t.getStatus()) {
-                    case 0:
-                        backlogTickets.getItems().add(t);
-                        break;
-                    case 3:
-                        readyTickets.getItems().add(t);
-                        break;
-                    case 6:
-                        inProgressTickets.getItems().add(t);
-                        break;
-                    case 9:
-                        doneTickets.getItems().add(t);
-                        break;
-                }
 
+            for (Map.Entry<Integer, ListView<Ticket>> entry : boards.entrySet()) {
+                ObservableList<Ticket> l = FXCollections.observableArrayList();
+                SortedList<Ticket> list = new SortedList<Ticket>(l);
+                lists.put(entry.getKey(), l);
+                list.setComparator(new TicketCompator());
+                entry.getValue().setItems(list);
+            }
+
+            for (Ticket t : tickets) {
+                ObservableList<Ticket> b = lists.get(t.getStatus());
+                if (b != null)
+                    b.add(t);
+                else
+                    System.out.println("BOARD for STATUS " + t.getStatus() + " NOT FOUND!!!!");
+            }
+            for (ListView<Ticket> board : boards.values()) {
+                ((ListViewSkinTicket) board.getSkin()).refresh();
             }
         } catch (RemoteException e) {
             e.printStackTrace();
@@ -142,6 +177,34 @@ public class TicketController extends NodeController {
                     this.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
             }
 
+        }
+    }
+
+    public class TicketCompator implements Comparator<Ticket> {
+
+        @Override
+        public int compare(Ticket o1, Ticket o2) {
+            if (o1 == null || o1 == null)
+                return 0;
+            if (o1.getPriority() != o2.getPriority())
+                return o2.getPriority() - o1.getPriority();
+            int dueCompare = 0;
+            if (o1.getDue() != null)
+
+                dueCompare = o1.getDue().compareTo(o2.getDue());
+            if (dueCompare != 0)
+                return dueCompare;
+            return o1.getId() - o2.getId();
+        }
+    }
+
+    public class ListViewSkinTicket extends ListViewSkin<Ticket> {
+        public ListViewSkinTicket(ListView<Ticket> listView) {
+            super(listView);
+        }
+
+        public void refresh() {
+            super.flow.recreateCells();
         }
     }
 }
