@@ -18,6 +18,7 @@ import me.lejenome.kanban_board_lite.client.NodeController;
 import me.lejenome.kanban_board_lite.client.RmiClient;
 import me.lejenome.kanban_board_lite.common.Project;
 import me.lejenome.kanban_board_lite.common.Ticket;
+import me.lejenome.kanban_board_lite.common.TicketExistsException;
 import me.lejenome.kanban_board_lite.common.TicketNotFoundException;
 
 import java.net.URL;
@@ -93,11 +94,12 @@ public class TicketController extends NodeController {
                 boolean success = false;
                 if (db.hasString()) {
                     try {
-                        lists.get(entry.getKey()).add(RmiClient.kanbanManager.getTicket(Integer.parseInt(db.getString())));
+                        Ticket t = RmiClient.kanbanManager.getTicket(Integer.parseInt(db.getString()));
+                        t.setStatus(entry.getKey());
+                        RmiClient.kanbanManager.updateTicket(t);
+                        lists.get(entry.getKey()).add(t);
                         success = true;
-                    } catch (RemoteException e1) {
-                        e1.printStackTrace();
-                    } catch (TicketNotFoundException e1) {
+                    } catch (RemoteException | TicketNotFoundException | TicketExistsException e1) {
                         e1.printStackTrace();
                     }
                 }
