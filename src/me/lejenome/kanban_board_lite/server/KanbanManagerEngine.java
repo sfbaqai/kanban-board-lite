@@ -94,6 +94,16 @@ public class KanbanManagerEngine extends UnicastRemoteObject implements KanbanMa
     }
 
     @Override
+    public HashMap<Integer, Integer> ticketChart() throws RemoteException {
+        return TicketEntity.chart();
+    }
+
+    @Override
+    public HashMap<Integer, Integer> ticketChart(Project p) throws RemoteException {
+        return TicketEntity.chart((ProjectEntity) p);
+    }
+
+    @Override
     public HashMap<Integer, String> getStatus() throws RemoteException {
         return TICKET_STATUS.getInstance();
     }

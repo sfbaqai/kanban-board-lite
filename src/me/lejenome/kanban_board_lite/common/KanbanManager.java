@@ -32,6 +32,10 @@ public interface KanbanManager extends Remote {
 
     Ticket updateTicket(Ticket ticket) throws RemoteException, TicketExistsException;
 
+    HashMap<Integer, Integer> ticketChart() throws RemoteException;
+
+    HashMap<Integer, Integer> ticketChart(Project p) throws RemoteException;
+
     HashMap<Integer, String> getStatus() throws RemoteException;
 
     HashMap<Integer, String> getPriorities() throws RemoteException;

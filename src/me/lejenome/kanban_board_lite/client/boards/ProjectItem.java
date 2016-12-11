@@ -9,9 +9,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import me.lejenome.kanban_board_lite.client.App;
+import me.lejenome.kanban_board_lite.client.RmiClient;
 import me.lejenome.kanban_board_lite.common.Project;
 
 import java.io.IOException;
+import java.rmi.RemoteException;
+import java.util.HashMap;
 
 public class ProjectItem extends AnchorPane {
     @FXML
@@ -58,6 +61,15 @@ public class ProjectItem extends AnchorPane {
         numReady.setText("0");
         numInProgress.setText("0");
         numDone.setText("0");
+        try {
+            HashMap<Integer, Integer> chart = RmiClient.kanbanManager.ticketChart(project);
+            numBacklog.setText(chart.getOrDefault(0, 0).toString());
+            numReady.setText(chart.getOrDefault(3, 0).toString());
+            numInProgress.setText(chart.getOrDefault(6, 0).toString());
+            numDone.setText(chart.getOrDefault(9, 0).toString());
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

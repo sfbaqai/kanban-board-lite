@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Vector;
 
 
@@ -83,6 +84,33 @@ public class TicketEntity implements Ticket {
             throw new RuntimeException();
         }
 
+    }
+
+    public static HashMap<Integer, Integer> chart() {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        try {
+            ResultSet res = Connection.executeQuery("SELECT status, COUNT(id) as cnt FROM Task GROUP BY status");
+            while (res.next()) {
+                map.put(res.getInt("status"), res.getInt("cnt"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
+
+    public static HashMap<Integer, Integer> chart(ProjectEntity p) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        try {
+            ResultSet res = Connection.executeQuery("SELECT status, COUNT(id) as cnt FROM Task WHERE project = ? GROUP BY status",
+                    p.getId(), Types.INTEGER);
+            while (res.next()) {
+                map.put(res.getInt("status"), res.getInt("cnt"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return map;
     }
 
     public void save() throws TicketExistsException {
