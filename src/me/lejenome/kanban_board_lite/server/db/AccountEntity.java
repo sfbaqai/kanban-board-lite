@@ -42,7 +42,7 @@ public class AccountEntity implements Account {
 
     public static AccountEntity get(final int id) throws AccountNotFoundException {
         AccountEntity acc = null;
-        try (ResultSet res = Connection.executeQuery("Select * from Account where id = ?",
+        try (ResultSet res = Connection.executeQuery("Select * from User where id = ?",
                 id, Types.INTEGER)) {
             res.next();
             acc = new AccountEntity(res.getString("first_name"), res.getString("last_name"), res.getString("email"));
@@ -58,7 +58,7 @@ public class AccountEntity implements Account {
 
     public static AccountEntity get(final String email) throws AccountNotFoundException {
         AccountEntity acc = null;
-        try (ResultSet res = Connection.executeQuery("Select * from Account where email = ?",
+        try (ResultSet res = Connection.executeQuery("Select * from User where email = ?",
                 email, Types.VARCHAR)) {
 
             res.next();
@@ -104,7 +104,7 @@ public class AccountEntity implements Account {
     public void save() throws AccountExistsException {
         if (id > 0) {
             try {
-                Connection.execute("Update Account Set first_name = ?, last_name = ? Where id = ?",
+                Connection.execute("Update User Set first_name = ?, last_name = ? Where id = ?",
                         firstName, Types.VARCHAR,
                         lastName, Types.VARCHAR,
                         id, Types.INTEGER);
@@ -114,7 +114,7 @@ public class AccountEntity implements Account {
             }
         } else {
             try {
-                Connection.execute("Insert Into Account (first_name, last_name, email, password, salt) values (?, ? , ?, ?, ?)",
+                Connection.execute("Insert Into User (first_name, last_name, email, password, salt) values (?, ? , ?, ?, ?)",
                         firstName, Types.VARCHAR,
                         lastName, Types.VARCHAR,
                         email, Types.VARCHAR,

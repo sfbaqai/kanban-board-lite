@@ -36,7 +36,7 @@ public class TicketEntity implements Ticket {
 
     public static TicketEntity get(final int id) throws TicketNotFoundException {
         TicketEntity t = null;
-        try (ResultSet res = Connection.executeQuery("Select * From Ticket Where id = ?",
+        try (ResultSet res = Connection.executeQuery("Select * From Task Where id = ?",
                 id, Types.INTEGER)) {
 
             res.next();
@@ -51,7 +51,7 @@ public class TicketEntity implements Ticket {
 
     public static Vector<TicketEntity> all(final Project p) {
         Vector<TicketEntity> v = new Vector<>();
-        try (ResultSet res = Connection.executeQuery("Select * from Ticket Where project = ?",
+        try (ResultSet res = Connection.executeQuery("Select * from Task Where project = ?",
                 p.getId(), Types.INTEGER)) {
             while (res.next()) {
                 TicketEntity t;
@@ -68,7 +68,7 @@ public class TicketEntity implements Ticket {
 
     public static Vector<TicketEntity> all(final Project p, final Account assignedTo) {
         Vector<TicketEntity> v = new Vector<>();
-        try (ResultSet res = Connection.executeQuery("Select * from Ticket Where project = ? and assigned_to = ?",
+        try (ResultSet res = Connection.executeQuery("Select * from Task Where project = ? and assigned_to = ?",
                 p.getId(), Types.INTEGER,
                 assignedTo.getId(), Types.INTEGER)) {
             while (res.next()) {
@@ -88,7 +88,7 @@ public class TicketEntity implements Ticket {
     public void save() throws TicketExistsException {
         if (id > 0) {
             try {
-                Connection.execute("Update Ticket Set title = ?, description = ?, status = ?, priority = ?, assigned_to = ?, due = ? WHERE id = ?",
+                Connection.execute("Update Task Set title = ?, description = ?, status = ?, priority = ?, assigned_to = ?, due = ? WHERE id = ?",
                         title, Types.VARCHAR,
                         description, Types.VARCHAR,
                         status, Types.SMALLINT,
@@ -102,7 +102,7 @@ public class TicketEntity implements Ticket {
             }
         } else {
             try {
-                Connection.execute("Insert INTO Ticket (title, description, status, priority, project, assigned_to, due) Values (?, ?, ?, ?, ?, ?, ?)",
+                Connection.execute("Insert INTO Task (title, description, status, priority, project, assigned_to, due) Values (?, ?, ?, ?, ?, ?, ?)",
                         title, Types.VARCHAR,
                         description, Types.VARCHAR,
                         status, Types.SMALLINT,

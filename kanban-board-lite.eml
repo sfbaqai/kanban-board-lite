@@ -6,4 +6,7 @@
 	<lib name="mariadb-java-client-1.5.5.jar" scope="COMPILE">
 		<relative-module-cls project-related="jar://$PROJECT_DIR$/vendor/mariadb-java-client-1.5.5.jar!/"/>
 	</lib>
+	<lib name="commons-validator-1.5.1.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/vendor/commons-validator-1.5.1.jar!/"/>
+	</lib>
 </component>
