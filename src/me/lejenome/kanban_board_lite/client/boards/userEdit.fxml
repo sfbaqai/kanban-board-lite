@@ -54,6 +54,6 @@
             </buttons>
         </ButtonBar>
         <Button fx:id="deleteBtn" layoutX="14.0" layoutY="353.0" mnemonicParsing="false" onAction="#delete"
-                text="Delete"/>
+                style="-fx-base: #ee2211;" text="Delete"/>
     </children>
 </AnchorPane>

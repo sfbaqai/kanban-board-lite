@@ -9,6 +9,7 @@ import me.lejenome.kanban_board_lite.client.RmiClient;
 import me.lejenome.kanban_board_lite.common.Project;
 import me.lejenome.kanban_board_lite.common.Ticket;
 import me.lejenome.kanban_board_lite.common.TicketExistsException;
+import me.lejenome.kanban_board_lite.common.TicketNotFoundException;
 
 import java.net.URL;
 import java.rmi.RemoteException;
@@ -32,6 +33,8 @@ public class TicketEditController extends NodeController {
     ComboBox<Integer> priority;
     @FXML
     DatePicker due;
+    @FXML
+    Button deleteBtn;
     private Ticket ticket;
     private Project project;
     private HashMap<Integer, String> TICKET_STATUS;
@@ -48,6 +51,9 @@ public class TicketEditController extends NodeController {
         } catch (RemoteException e) {
             e.printStackTrace();
         }
+
+        if (!RmiClient.account.isAdmin())
+            deleteBtn.setVisible(false);
 
         status.setButtonCell(new CheckBoxCellRenderer(TICKET_STATUS));
         status.setCellFactory(param -> new CheckBoxCellRenderer(TICKET_STATUS));
@@ -113,6 +119,19 @@ public class TicketEditController extends NodeController {
 
     public void setProjectBoard(TicketController ticketController) {
         this.projectBoard = ticketController;
+    }
+
+    public void delete(ActionEvent actionEvent) {
+        if (RmiClient.account.isAdmin())
+            try {
+                RmiClient.kanbanManager.removeTicket(ticket);
+                projectBoard.refresh(null);
+                stage.close();
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            } catch (TicketNotFoundException e) {
+                e.printStackTrace();
+            }
     }
 
     class CheckBoxCellRenderer extends ListCell<Integer> {

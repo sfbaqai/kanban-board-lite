@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-            minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60"
+            minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65"
             fx:controller="me.lejenome.kanban_board_lite.client.boards.ProjectEditController">
     <children>
         <GridPane layoutX="200.0" layoutY="155.0" prefHeight="191.0" prefWidth="572.0" AnchorPane.leftAnchor="14.0"
@@ -47,6 +47,6 @@
             </buttons>
         </ButtonBar>
         <Button fx:id="deleteBtn" layoutX="14.0" layoutY="354.0" mnemonicParsing="false" onAction="#delete"
-                text="Delete"/>
+                style="-fx-base: #ee2211;" text="Delete"/>
     </children>
 </AnchorPane>
