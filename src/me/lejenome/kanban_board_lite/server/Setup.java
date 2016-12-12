@@ -51,7 +51,7 @@ public class Setup {
         System.out.println("    Last Name:  " + lastName);
         char yes = 'n';
         do {
-            System.out.println("Confirm (Y/N) [Y] : ");
+            System.out.print("Confirm (Y/N) [Y] : ");
             try {
                 yes = (char) System.in.read();
             } catch (IOException e) {
@@ -64,6 +64,7 @@ public class Setup {
         try {
             Connection.initialize();
             AccountEntity acc = new AccountEntity(firstName, lastName, email, password);
+            acc.setRole("admin");
             acc.save();
             System.out.println("Account Successfully Created.");
         } catch (SQLException e) {

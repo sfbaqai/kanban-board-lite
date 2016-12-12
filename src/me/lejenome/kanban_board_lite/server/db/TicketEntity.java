@@ -147,6 +147,16 @@ public class TicketEntity implements Ticket {
         }
     }
 
+    public void remove() throws TicketNotFoundException {
+        if (id < 1)
+            throw new TicketNotFoundException();
+        try {
+            Connection.execute("DELETE FROM Task WHERE id = ?", id, Types.INTEGER);
+        } catch (SQLException e) {
+            throw new TicketNotFoundException();
+        }
+    }
+
     @Override
     public int getId() {
         return id;

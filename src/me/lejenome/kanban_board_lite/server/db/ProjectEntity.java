@@ -121,6 +121,16 @@ public class ProjectEntity implements Project {
         }
     }
 
+    public void remove() throws ProjectNotFoundException {
+        if (id < 1)
+            throw new ProjectNotFoundException();
+        try {
+            Connection.execute("DELETE FROM Project WHERE id = ?", id, Types.INTEGER);
+        } catch (SQLException e) {
+            throw new ProjectNotFoundException();
+        }
+    }
+
     @Override
     public int getId() {
         return id;

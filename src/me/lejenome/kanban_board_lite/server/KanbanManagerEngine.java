@@ -33,6 +33,19 @@ public class KanbanManagerEngine extends UnicastRemoteObject implements KanbanMa
     }
 
     @Override
+    public Vector<Account> listAccounts() throws RemoteException {
+        Vector<AccountEntity> v1 = AccountEntity.all();
+        Vector<Account> v2 = new Vector<>(v1);
+        return v2;
+    }
+
+
+    @Override
+    public void removeAccount(Account account) throws RemoteException, AccountNotFoundException {
+        ((AccountEntity) account).remove();
+    }
+
+    @Override
     public Project getProject(int id) throws RemoteException, ProjectNotFoundException {
         return ProjectEntity.get(id);
     }
@@ -52,7 +65,6 @@ public class KanbanManagerEngine extends UnicastRemoteObject implements KanbanMa
 
     @Override
     public Vector<Project> listProjects() {
-
         Vector<ProjectEntity> l = ProjectEntity.all();
         Vector<Project> v = new Vector<>(l);
         return v;
@@ -70,7 +82,6 @@ public class KanbanManagerEngine extends UnicastRemoteObject implements KanbanMa
         Vector<TicketEntity> l = TicketEntity.all((ProjectEntity) project);
         Vector<Ticket> v = new Vector<>(l);
         return v;
-
     }
 
     @Override
@@ -78,6 +89,11 @@ public class KanbanManagerEngine extends UnicastRemoteObject implements KanbanMa
         Vector<TicketEntity> l = TicketEntity.all((ProjectEntity) project, (AccountEntity) assignedTo);
         Vector<Ticket> v = new Vector<>(l);
         return v;
+    }
+
+    @Override
+    public void removeProject(Project project) throws RemoteException, ProjectNotFoundException {
+        ((ProjectEntity) project).remove();
     }
 
     @Override
@@ -96,6 +112,11 @@ public class KanbanManagerEngine extends UnicastRemoteObject implements KanbanMa
     @Override
     public Ticket getTicket(int id) throws RemoteException, TicketNotFoundException {
         return TicketEntity.get(id);
+    }
+
+    @Override
+    public void removeTicket(Ticket ticket) throws RemoteException, TicketNotFoundException {
+        ((TicketEntity) ticket).remove();
     }
 
     @Override

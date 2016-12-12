@@ -17,5 +17,11 @@ public interface Account extends Serializable {
 
     void setLastName(String lastName);
 
+    boolean isAdmin();
+
+    String getRole();
+
+    void setRole(String role);
+
     String getEmail();
 }

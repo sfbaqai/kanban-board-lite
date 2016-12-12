@@ -2,10 +2,14 @@ package me.lejenome.kanban_board_lite.client.boards;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.TilePane;
+import javafx.stage.Stage;
+import me.lejenome.kanban_board_lite.client.App;
 import me.lejenome.kanban_board_lite.client.NodeController;
+import me.lejenome.kanban_board_lite.client.RmiClient;
 import me.lejenome.kanban_board_lite.common.Project;
 
 import java.net.URL;
@@ -19,6 +23,9 @@ public class ProjectController extends NodeController {
     @FXML
     ScrollPane scrollPane;
 
+    @FXML
+    Button usersBtn;
+
     private Vector<Project> projects;
 
 
@@ -29,6 +36,9 @@ public class ProjectController extends NodeController {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        if (!RmiClient.account.isAdmin())
+            usersBtn.setVisible(false);
+
         projectsList.prefWidthProperty().bind(scrollPane.widthProperty());
     }
 
@@ -37,6 +47,12 @@ public class ProjectController extends NodeController {
         for (Project p : projects) {
             projectsList.getChildren().add(new ProjectItem(p));
         }
+    }
+
+    public void users(ActionEvent actionEvent) {
+        Stage stage = new Stage();
+        UsersController ctrl = (UsersController) App.Load("boards/users.fxml", stage);
+        stage.show();
     }
 
     class ListCellRenderer extends ListCell<Project> {

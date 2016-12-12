@@ -9,6 +9,7 @@ import me.lejenome.kanban_board_lite.client.NodeController;
 import me.lejenome.kanban_board_lite.client.RmiClient;
 import me.lejenome.kanban_board_lite.common.Project;
 import me.lejenome.kanban_board_lite.common.ProjectExistsException;
+import me.lejenome.kanban_board_lite.common.ProjectNotFoundException;
 
 import java.net.URL;
 import java.rmi.RemoteException;
@@ -75,6 +76,10 @@ public class ProjectEditController extends NodeController {
 
     public void delete(ActionEvent actionEvent) {
         if (project != null)
-            ; // RmiClient.kanbanManager.deletePrject(project) TODO
+            try {
+                RmiClient.kanbanManager.removeProject(project);
+            } catch (RemoteException | ProjectNotFoundException e) {
+                e.printStackTrace();
+            }
     }
 }

@@ -15,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.Arrays;
+import java.util.Vector;
 
 public class AccountEntity implements Account {
     private static SecureRandom rand = new SecureRandom();
@@ -24,6 +25,7 @@ public class AccountEntity implements Account {
     private String email;
     private byte[] password;
     private byte[] salt;
+    private String role;
 
 
     private AccountEntity(String firstName, String lastName, String email) {
@@ -31,6 +33,7 @@ public class AccountEntity implements Account {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.role = "user";
     }
 
     public AccountEntity(String firstName, String lastName, String email, String password) {
@@ -46,6 +49,7 @@ public class AccountEntity implements Account {
                 id, Types.INTEGER)) {
             res.next();
             acc = new AccountEntity(res.getString("first_name"), res.getString("last_name"), res.getString("email"));
+            acc.role = res.getString("role");
             acc.id = res.getInt("id");
             acc.password = res.getBytes("password");
             acc.salt = res.getBytes("salt");
@@ -63,6 +67,7 @@ public class AccountEntity implements Account {
 
             res.next();
             acc = new AccountEntity(res.getString("first_name"), res.getString("last_name"), res.getString("email"));
+            acc.role = res.getString("role");
             acc.id = res.getInt("id");
             acc.password = res.getBytes("password");
             acc.salt = res.getBytes("salt");
@@ -81,6 +86,23 @@ public class AccountEntity implements Account {
             return acc;
         else
             throw new AuthenticationException();
+    }
+
+    public static Vector<AccountEntity> all() {
+        Vector<AccountEntity> v = new Vector<>();
+        try (ResultSet res = Connection.executeQuery("Select * from User")) {
+            while (res.next()) {
+                AccountEntity acc = new AccountEntity(res.getString("first_name"), res.getString("last_name"), res.getString("email"));
+                acc.role = res.getString("role");
+                acc.id = res.getInt("id");
+                acc.password = res.getBytes("password");
+                acc.salt = res.getBytes("salt");
+                v.add(acc);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return v;
     }
 
     public static byte[][] hashPassword(final String password, byte[] salt) {
@@ -104,9 +126,10 @@ public class AccountEntity implements Account {
     public void save() throws AccountExistsException {
         if (id > 0) {
             try {
-                Connection.execute("Update User Set first_name = ?, last_name = ? Where id = ?",
+                Connection.execute("Update User Set first_name = ?, last_name = ?, role = ? Where id = ?",
                         firstName, Types.VARCHAR,
                         lastName, Types.VARCHAR,
+                        role, Types.VARCHAR,
                         id, Types.INTEGER);
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -114,17 +137,28 @@ public class AccountEntity implements Account {
             }
         } else {
             try {
-                Connection.execute("Insert Into User (first_name, last_name, email, password, salt) values (?, ? , ?, ?, ?)",
+                Connection.execute("Insert Into User (first_name, last_name, email, password, salt, role) values (?, ? , ?, ?, ?, ?)",
                         firstName, Types.VARCHAR,
                         lastName, Types.VARCHAR,
                         email, Types.VARCHAR,
                         password, Types.VARBINARY,
-                        salt, Types.VARBINARY);
+                        salt, Types.VARBINARY,
+                        role, Types.VARCHAR);
                 // TODO update id
             } catch (SQLException e) {
                 e.printStackTrace();
                 throw new AccountExistsException();
             }
+        }
+    }
+
+    public void remove() throws AccountNotFoundException {
+        if (id < 1)
+            throw new AccountNotFoundException();
+        try {
+            Connection.execute("DELETE FROM User WHERE id = ?", id, Types.INTEGER);
+        } catch (SQLException e) {
+            throw new AccountNotFoundException();
         }
     }
 
@@ -134,7 +168,8 @@ public class AccountEntity implements Account {
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", email='" + email +
+                ", email='" + email + '\'' +
+                ",role='" + role + '\'' +
                 '}';
     }
 
@@ -161,6 +196,20 @@ public class AccountEntity implements Account {
     @Override
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    @Override
+    public boolean isAdmin() {
+        return role.equals("admin");
+    }
+
+    @Override
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     @Override
