@@ -2,18 +2,60 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-            minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.112"
+            minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.112"
             fx:controller="me.lejenome.kanban_board_lite.client.boards.TicketController">
     <center>
-        <HBox fx:id="ticketsBox" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <GridPane>
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints maxHeight="69.0" minHeight="10.0" prefHeight="27.0" vgrow="NEVER"/>
+                <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" valignment="TOP" vgrow="ALWAYS"/>
+            </rowConstraints>
             <children>
-                <ListView fx:id="backlogTickets" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS"/>
-                <ListView fx:id="readyTickets" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS"/>
-                <ListView fx:id="inProgressTickets" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS"/>
-                <ListView fx:id="doneTickets" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS"/>
+                <ListView fx:id="backlogTickets" maxHeight="1.7976931348623157E308" GridPane.hgrow="ALWAYS"
+                          GridPane.rowIndex="1" GridPane.vgrow="ALWAYS"/>
+                <ListView fx:id="readyTickets" maxHeight="1.7976931348623157E308" GridPane.columnIndex="1"
+                          GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS"/>
+                <ListView fx:id="inProgressTickets" maxHeight="1.7976931348623157E308" GridPane.columnIndex="2"
+                          GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS"/>
+                <ListView fx:id="doneTickets" maxHeight="1.7976931348623157E308" GridPane.columnIndex="3"
+                          GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS"/>
+                <Label alignment="CENTER" text="BackLog" textAlignment="CENTER" GridPane.halignment="CENTER"
+                       GridPane.hgrow="NEVER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+                    <font>
+                        <Font name="System Bold" size="13.0"/>
+                    </font>
+                </Label>
+                <Label alignment="CENTER" text="Ready" textAlignment="CENTER" GridPane.columnIndex="1"
+                       GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.valignment="CENTER"
+                       GridPane.vgrow="NEVER">
+                    <font>
+                        <Font name="System Bold" size="13.0"/>
+                    </font>
+                </Label>
+                <Label alignment="CENTER" text="In Progress" textAlignment="CENTER" GridPane.columnIndex="2"
+                       GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.valignment="CENTER"
+                       GridPane.vgrow="NEVER">
+                    <font>
+                        <Font name="System Bold" size="13.0"/>
+                    </font>
+                </Label>
+                <Label alignment="CENTER" text="Done" textAlignment="CENTER" GridPane.columnIndex="3"
+                       GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.valignment="CENTER"
+                       GridPane.vgrow="NEVER">
+                    <font>
+                        <Font name="System Bold" size="13.0"/>
+                    </font>
+                </Label>
             </children>
-        </HBox>
+        </GridPane>
     </center>
     <top>
         <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
@@ -21,6 +63,12 @@
                 <Button mnemonicParsing="false" onAction="#refresh" text="Refresh"/>
                 <Button mnemonicParsing="false" onAction="#edit" text="Edit"/>
                 <Button mnemonicParsing="false" onAction="#add" text="Add"/>
+                <HBox HBox.hgrow="ALWAYS"/>
+                <Label fx:id="name">
+                    <font>
+                        <Font name="System Bold Italic" size="20.0"/>
+                    </font>
+                </Label>
             </items>
         </ToolBar>
     </top>

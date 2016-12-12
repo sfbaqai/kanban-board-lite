@@ -41,7 +41,7 @@ public class TicketEntity implements Ticket {
                 id, Types.INTEGER)) {
 
             res.next();
-            t = new TicketEntity(res.getString("title"), res.getString("description"), res.getInt("status"), res.getInt("priority"), res.getInt("project"), (Integer) res.getObject("assigned_to"), res.getDate("due"));
+            t = new TicketEntity(res.getString("title"), res.getString("description"), res.getInt("status"), res.getInt("priority"), res.getInt("project"), res.getObject("assigned_to") != null ? res.getInt("assigned_to") : null, res.getDate("due"));
             t.id = id;
             return t;
         } catch (SQLException e) {
@@ -56,7 +56,7 @@ public class TicketEntity implements Ticket {
                 p.getId(), Types.INTEGER)) {
             while (res.next()) {
                 TicketEntity t;
-                t = new TicketEntity(res.getString("title"), res.getString("description"), res.getInt("status"), res.getInt("priority"), res.getInt("project"), (Integer) res.getObject("assigned_to"), res.getDate("due"));
+                t = new TicketEntity(res.getString("title"), res.getString("description"), res.getInt("status"), res.getInt("priority"), res.getInt("project"), res.getObject("assigned_to") != null ? res.getInt("assigned_to") : null, res.getDate("due"));
                 t.id = res.getInt("id");
                 v.add(t);
             }
@@ -74,7 +74,7 @@ public class TicketEntity implements Ticket {
                 assignedTo.getId(), Types.INTEGER)) {
             while (res.next()) {
                 TicketEntity t;
-                t = new TicketEntity(res.getString("title"), res.getString("description"), res.getInt("status"), res.getInt("priority"), res.getInt("project"), res.getInt("assigned_to"), res.getDate("due"));
+                t = new TicketEntity(res.getString("title"), res.getString("description"), res.getInt("status"), res.getInt("priority"), res.getInt("project"), res.getObject("assigned_to") != null ? res.getInt("assigned_to") : null, res.getDate("due"));
                 t.id = res.getInt("id");
                 v.add(t);
             }
@@ -210,12 +210,15 @@ public class TicketEntity implements Ticket {
     @Override
 
     public int getAssignedToId() {
-        return assignedToId;
+        if (assignedToId != null)
+            return assignedToId;
+        else return -1;
     }
 
     @Override
     public void setAssignedTo(Account assignedTo) {
-        this.assignedToId = assignedTo.getId();
+        if (assignedTo != null) this.assignedToId = assignedTo.getId();
+        else this.assignedToId = null;
     }
 
     @Override

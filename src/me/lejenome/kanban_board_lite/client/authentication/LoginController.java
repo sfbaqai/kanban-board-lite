@@ -7,7 +7,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import me.lejenome.kanban_board_lite.client.NodeController;
 import me.lejenome.kanban_board_lite.client.RmiClient;
-import me.lejenome.kanban_board_lite.client.boards.ProjectController;
 import me.lejenome.kanban_board_lite.common.AccountNotFoundException;
 import me.lejenome.kanban_board_lite.common.AuthenticationException;
 
@@ -30,8 +29,7 @@ public class LoginController extends NodeController {
         try {
             errorMessage.setText("");
             RmiClient.account = RmiClient.kanbanManager.authenticate(email.getText(), password.getText());
-            ProjectController ctrl = (ProjectController) app.load("boards/projects.fxml");
-            ctrl.setProjects(RmiClient.kanbanManager.listProjects());
+            app.load("boards/projects.fxml");
         } catch (AccountNotFoundException e) {
             e.printStackTrace();
             errorMessage.setText("Account Not Found");

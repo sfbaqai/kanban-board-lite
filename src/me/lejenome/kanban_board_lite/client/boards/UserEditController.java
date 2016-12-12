@@ -33,7 +33,7 @@ public class UserEditController extends NodeController {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         if (!RmiClient.account.isAdmin()) {
-            role.setEditable(false);
+            role.setDisable(true);
         }
         role.getItems().addAll("admin", "user");
     }
@@ -77,6 +77,8 @@ public class UserEditController extends NodeController {
             RmiClient.kanbanManager.removeAccount(account);
             if (usersController != null)
                 usersController.refresh();
+            if (account.getId() == RmiClient.account.getId())
+                System.exit(0);
             stage.close();
         } catch (RemoteException | AccountNotFoundException e) {
             e.printStackTrace();

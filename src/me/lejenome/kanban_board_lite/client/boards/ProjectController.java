@@ -13,6 +13,7 @@ import me.lejenome.kanban_board_lite.client.RmiClient;
 import me.lejenome.kanban_board_lite.common.Project;
 
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 import java.util.Vector;
 
@@ -26,13 +27,6 @@ public class ProjectController extends NodeController {
     @FXML
     Button usersBtn;
 
-    private Vector<Project> projects;
-
-
-    public void setProjects(Vector<Project> projects) {
-        this.projects = projects;
-        refresh(null);
-    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -40,18 +34,32 @@ public class ProjectController extends NodeController {
             usersBtn.setVisible(false);
 
         projectsList.prefWidthProperty().bind(scrollPane.widthProperty());
+        refresh(null);
     }
 
     public void refresh(ActionEvent actionEvent) {
-        projectsList.getChildren().clear();
-        for (Project p : projects) {
-            projectsList.getChildren().add(new ProjectItem(p));
+        try {
+            projectsList.getChildren().clear();
+            Vector<Project> projects = RmiClient.kanbanManager.listProjects();
+            for (Project p : projects) {
+                projectsList.getChildren().add(new ProjectItem(p));
+            }
+        } catch (RemoteException e) {
+            e.printStackTrace();
         }
+
     }
 
     public void users(ActionEvent actionEvent) {
         Stage stage = new Stage();
         UsersController ctrl = (UsersController) App.Load("boards/users.fxml", stage);
+        stage.show();
+    }
+
+    public void account(ActionEvent actionEvent) {
+        Stage stage = new Stage();
+        UserEditController ctrl = (UserEditController) App.Load("boards/userEdit.fxml", stage);
+        ctrl.setAccount(RmiClient.account);
         stage.show();
     }
 

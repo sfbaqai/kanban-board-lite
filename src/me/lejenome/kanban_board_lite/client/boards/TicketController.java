@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.input.ClipboardContent;
@@ -27,6 +28,8 @@ import java.util.*;
 
 public class TicketController extends NodeController {
 
+    @FXML
+    Label name;
     @FXML
     HBox ticketsBox;
     @FXML
@@ -98,6 +101,7 @@ public class TicketController extends NodeController {
                         t.setStatus(entry.getKey());
                         RmiClient.kanbanManager.updateTicket(t);
                         lists.get(entry.getKey()).add(t);
+                        ((ListViewSkinTicket) board.getSkin()).refresh();
                         success = true;
                     } catch (RemoteException | TicketNotFoundException | TicketExistsException e1) {
                         e1.printStackTrace();
@@ -122,6 +126,7 @@ public class TicketController extends NodeController {
 
     public void setProject(Project p) {
         this.project = p;
+        name.setText(p.getName());
         refresh(null);
     }
 
@@ -167,6 +172,12 @@ public class TicketController extends NodeController {
         @Override
         protected void updateItem(Ticket ticket, boolean empty) {
             super.updateItem(ticket, empty);
+            if (ticket != null) {
+                TicketItem item = new TicketItem(ticket);
+                setGraphic(item);
+            }
+            setStyle("-fx-padding: 0");
+            /*
             if (ticket != null) setText(ticket.getTitle());
             if (colorTo > 0 && ticket != null) {
                 if (ticket.getPriority() < colorTo / 4)
@@ -178,6 +189,7 @@ public class TicketController extends NodeController {
                 else
                     this.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
             }
+            */
 
         }
     }
