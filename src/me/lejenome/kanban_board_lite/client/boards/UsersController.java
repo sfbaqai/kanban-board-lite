@@ -64,7 +64,6 @@ public class UsersController extends NodeController {
         try {
             usersTable.getItems().clear();
             Vector<Account> accounts = RmiClient.kanbanManager.listAccounts();
-            System.out.println(accounts);
             usersTable.getItems().addAll(accounts);
         } catch (RemoteException e) {
             e.printStackTrace();

@@ -177,20 +177,6 @@ public class TicketController extends NodeController {
                 setGraphic(item);
             }
             setStyle("-fx-padding: 0");
-            /*
-            if (ticket != null) setText(ticket.getTitle());
-            if (colorTo > 0 && ticket != null) {
-                if (ticket.getPriority() < colorTo / 4)
-                    this.setStyle("-fx-border-color: green; -fx-border-width: 0 0 3 0;");
-                else if (ticket.getPriority() < colorTo / 2)
-                    this.setStyle("-fx-border-color: powderblue; -fx-border-width: 0 0 3 0;");
-                else if (ticket.getPriority() < (colorTo / 4) * 3)
-                    this.setStyle("-fx-border-color: coral; -fx-border-width: 0 0 3 0;");
-                else
-                    this.setStyle("-fx-border-color: red; -fx-border-width: 0 0 3 0;");
-            }
-            */
-
         }
     }
 

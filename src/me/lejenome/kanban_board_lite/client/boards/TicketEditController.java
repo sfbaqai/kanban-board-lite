@@ -12,8 +12,7 @@ import me.lejenome.kanban_board_lite.common.TicketExistsException;
 
 import java.net.URL;
 import java.rmi.RemoteException;
-import java.time.LocalDate;
-import java.util.Date;
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
@@ -64,7 +63,7 @@ public class TicketEditController extends NodeController {
     public void save(ActionEvent actionEvent) {
         if (ticket == null) {
             try {
-                RmiClient.kanbanManager.createTicket(title.getText(), description.getText(), status.getSelectionModel().getSelectedItem(), priority.getSelectionModel().getSelectedItem(), null, project, null);
+                RmiClient.kanbanManager.createTicket(title.getText(), description.getText(), status.getSelectionModel().getSelectedItem(), priority.getSelectionModel().getSelectedItem(), null, project, Date.valueOf(due.getValue()));
                 stage.close();
                 projectBoard.refresh(null);
             } catch (RemoteException e) {
@@ -78,8 +77,8 @@ public class TicketEditController extends NodeController {
                 ticket.setDescription(description.getText());
                 ticket.setStatus(status.getSelectionModel().getSelectedItem());
                 ticket.setPriority(priority.getSelectionModel().getSelectedItem());
-                if(due.getValue() != null)
-                    ticket.setDue(new Date(due.getValue().toEpochDay()));
+                if (due.getValue() != null)
+                    ticket.setDue(Date.valueOf(due.getValue()));
                 else
                     ticket.setDue(null);
                 RmiClient.kanbanManager.updateTicket(ticket);
@@ -95,6 +94,7 @@ public class TicketEditController extends NodeController {
 
 
     public void cancel(ActionEvent actionEvent) {
+        stage.close();
     }
 
     public void setTicket(Ticket ticket) {
@@ -104,7 +104,7 @@ public class TicketEditController extends NodeController {
         status.getSelectionModel().select(Integer.valueOf(ticket.getStatus()));
         priority.getSelectionModel().select(Integer.valueOf(ticket.getPriority()));
         if (ticket.getDue() != null)
-            due.setValue(LocalDate.ofEpochDay(ticket.getDue().getTime()));
+            due.setValue(ticket.getDue().toLocalDate());
     }
 
     public void setProject(Project project) {

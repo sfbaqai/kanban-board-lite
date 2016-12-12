@@ -3,7 +3,7 @@ package me.lejenome.kanban_board_lite.common;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.util.Date;
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.Vector;
 

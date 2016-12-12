@@ -2,10 +2,10 @@ package me.lejenome.kanban_board_lite.server.db;
 
 import me.lejenome.kanban_board_lite.common.*;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Vector;
 

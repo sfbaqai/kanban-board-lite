@@ -5,7 +5,7 @@ import me.lejenome.kanban_board_lite.server.db.*;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.Date;
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.Vector;
 

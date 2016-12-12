@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class App extends Application {
-    // TODO implement SWING/JavaFX interface
     private Stage stage;
 
     public static NodeController Load(String fxml, Stage stage) {

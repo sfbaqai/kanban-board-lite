@@ -5,7 +5,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<fx:root xmlns:fx="http://javafx.com/fxml/1" prefHeight="85.0" prefWidth="165.0" type="javafx.scene.layout.AnchorPane"
+<fx:root xmlns:fx="http://javafx.com/fxml/1" prefHeight="80.0" prefWidth="165.0" type="javafx.scene.layout.AnchorPane"
          xmlns="http://javafx.com/javafx/8.0.65">
     <children>
         <Label fx:id="title" layoutX="14.0" layoutY="14.0" text="Ticket Name" AnchorPane.leftAnchor="14.0"
@@ -23,13 +23,13 @@
                 <Font name="System Bold" size="26.0"/>
             </font>
         </Label>
-        <ImageView fx:id="dueIcon" fitHeight="25.0" fitWidth="25.0" layoutX="14.0" layoutY="-68.0" pickOnBounds="true"
+        <ImageView fx:id="dueIcon" fitHeight="20.0" fitWidth="20.0" layoutX="14.0" layoutY="-68.0" pickOnBounds="true"
                    preserveRatio="true" AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="14.0">
             <image>
-                <Image url="@../../../../../../vendor/font-awesome-calendar.png"/>
+                <Image url="@resources/font-awesome-calendar.png"/>
             </image>
         </ImageView>
-        <Label fx:id="due" layoutX="40.0" layoutY="62.0" text="19/08/1994" AnchorPane.bottomAnchor="22.0"
-               AnchorPane.leftAnchor="40.0"/>
+        <Label fx:id="due" layoutX="36.0" layoutY="44.0" text="19/08/1994" AnchorPane.bottomAnchor="20.0"
+               AnchorPane.leftAnchor="36.0"/>
     </children>
 </fx:root>

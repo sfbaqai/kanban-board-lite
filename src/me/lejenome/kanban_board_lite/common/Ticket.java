@@ -1,7 +1,7 @@
 package me.lejenome.kanban_board_lite.common;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
 
 /**
  * Created by lejenome on 12/1/16.

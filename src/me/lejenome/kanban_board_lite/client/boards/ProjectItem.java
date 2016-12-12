@@ -61,7 +61,6 @@ public class ProjectItem extends AnchorPane {
         numReady.setText("0");
         numInProgress.setText("0");
         numDone.setText("0");
-        System.out.println(RmiClient.account);
         if (!RmiClient.account.isAdmin())
             editBtn.setVisible(false);
         try {
