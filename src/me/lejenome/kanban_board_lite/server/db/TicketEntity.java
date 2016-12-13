@@ -1,6 +1,7 @@
 package me.lejenome.kanban_board_lite.server.db;
 
 import me.lejenome.kanban_board_lite.common.*;
+import me.lejenome.kanban_board_lite.server.NotificationProvider;
 
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -124,6 +125,7 @@ public class TicketEntity implements Ticket {
                         assignedToId, Types.INTEGER,
                         due, Types.DATE,
                         id, Types.INTEGER);
+                NotificationProvider.notifyProjectUpdate(getProjectId());
             } catch (SQLException e) {
                 e.printStackTrace();
                 throw new RuntimeException(e);
@@ -138,7 +140,7 @@ public class TicketEntity implements Ticket {
                         projectId, Types.INTEGER,
                         assignedToId, Types.INTEGER,
                         due, Types.DATE);
-
+                NotificationProvider.notifyProjectUpdate(getProjectId());
                 // TODO update id
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -152,6 +154,7 @@ public class TicketEntity implements Ticket {
             throw new TicketNotFoundException();
         try {
             Connection.execute("DELETE FROM Task WHERE id = ?", id, Types.INTEGER);
+            NotificationProvider.notifyProjectUpdate(getProjectId());
         } catch (SQLException e) {
             throw new TicketNotFoundException();
         }

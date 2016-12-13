@@ -22,6 +22,8 @@ public class RmiServer {
             }
             Naming.rebind("//localhost/KanbanManager", stub);
             System.out.println("RMI Server Started...");
+            NotificationProvider.getInstance();
+
 
         } catch (Exception e) {
             e.printStackTrace();

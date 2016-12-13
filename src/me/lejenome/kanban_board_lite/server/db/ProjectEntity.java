@@ -4,6 +4,7 @@ import me.lejenome.kanban_board_lite.common.Account;
 import me.lejenome.kanban_board_lite.common.Project;
 import me.lejenome.kanban_board_lite.common.ProjectExistsException;
 import me.lejenome.kanban_board_lite.common.ProjectNotFoundException;
+import me.lejenome.kanban_board_lite.server.NotificationProvider;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -101,6 +102,7 @@ public class ProjectEntity implements Project {
                         ownerId, Types.INTEGER,
                         (parentId > 0) ? parentId : null, Types.INTEGER,
                         id, Types.INTEGER);
+                NotificationProvider.notifyProjectUpdate(this);
             } catch (SQLException e) {
                 e.printStackTrace();
                 throw new RuntimeException();
@@ -126,6 +128,7 @@ public class ProjectEntity implements Project {
             throw new ProjectNotFoundException();
         try {
             Connection.execute("DELETE FROM Project WHERE id = ?", id, Types.INTEGER);
+            NotificationProvider.notifyProjectUpdate(this);
         } catch (SQLException e) {
             throw new ProjectNotFoundException();
         }

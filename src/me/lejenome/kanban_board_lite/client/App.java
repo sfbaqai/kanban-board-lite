@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class App extends Application {
-    private Stage stage;
+    public static Stage stage;
 
     public static NodeController Load(String fxml, Stage stage) {
         FXMLLoader loader = new FXMLLoader();
@@ -41,10 +41,11 @@ public class App extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-
+        if (stage != null) {
+            throw new RuntimeException("One App instance is supported by execution!");
+        }
         stage = primaryStage;
         load("authentication/login.fxml");
-
 
         stage.setTitle("Kanban Board Lite");
 
@@ -63,6 +64,7 @@ public class App extends Application {
     }
 
     public void close() {
+        NotificationWatcher.close();
         stage.close();
     }
 }

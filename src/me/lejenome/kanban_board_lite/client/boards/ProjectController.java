@@ -9,6 +9,7 @@ import javafx.scene.layout.TilePane;
 import javafx.stage.Stage;
 import me.lejenome.kanban_board_lite.client.App;
 import me.lejenome.kanban_board_lite.client.NodeController;
+import me.lejenome.kanban_board_lite.client.NotificationWatcher;
 import me.lejenome.kanban_board_lite.client.RmiClient;
 import me.lejenome.kanban_board_lite.common.Project;
 
@@ -35,6 +36,9 @@ public class ProjectController extends NodeController {
 
         projectsList.prefWidthProperty().bind(scrollPane.widthProperty());
         refresh(null);
+        NotificationWatcher.addListener((target, id) -> {
+            refresh(null);
+        });
     }
 
     public void refresh(ActionEvent actionEvent) {

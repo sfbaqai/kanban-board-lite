@@ -17,6 +17,8 @@ public class RmiClient {
 
         kanbanManager = (KanbanManager) Naming.lookup("//localhost/KanbanManager");
 
+        NotificationWatcher.getInstance();
+
         Application.launch(App.class);
     }
 }

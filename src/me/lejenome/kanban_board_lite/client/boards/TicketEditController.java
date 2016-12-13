@@ -69,7 +69,7 @@ public class TicketEditController extends NodeController {
     public void save(ActionEvent actionEvent) {
         if (ticket == null) {
             try {
-                RmiClient.kanbanManager.createTicket(title.getText(), description.getText(), status.getSelectionModel().getSelectedItem(), priority.getSelectionModel().getSelectedItem(), null, project, Date.valueOf(due.getValue()));
+                RmiClient.kanbanManager.createTicket(title.getText(), description.getText(), status.getSelectionModel().getSelectedItem(), priority.getSelectionModel().getSelectedItem(), null, project, due.getValue() != null ? Date.valueOf(due.getValue()) : null);
                 stage.close();
                 projectBoard.refresh(null);
             } catch (RemoteException e) {

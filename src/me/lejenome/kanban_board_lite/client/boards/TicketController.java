@@ -16,6 +16,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import me.lejenome.kanban_board_lite.client.App;
 import me.lejenome.kanban_board_lite.client.NodeController;
+import me.lejenome.kanban_board_lite.client.NotificationWatcher;
 import me.lejenome.kanban_board_lite.client.RmiClient;
 import me.lejenome.kanban_board_lite.common.Project;
 import me.lejenome.kanban_board_lite.common.Ticket;
@@ -80,8 +81,11 @@ public class TicketController extends NodeController {
                 });
 
                 cell.setOnDragDone(e -> {
-                    lists.get(entry.getKey()).remove(cell.getIndex());
-                    ((ListViewSkinTicket) board.getSkin()).refresh();
+                    try {
+                        lists.get(entry.getKey()).remove(cell.getIndex());
+                        ((ListViewSkinTicket) board.getSkin()).refresh();
+                    } catch (ArrayIndexOutOfBoundsException e1) {
+                    }
                 });
 
                 return cell;
@@ -111,6 +115,9 @@ public class TicketController extends NodeController {
                 e.consume();
             });
         }
+        NotificationWatcher.addListener((target, id) -> {
+            refresh(null);
+        });
 
     }
 
@@ -184,16 +191,16 @@ public class TicketController extends NodeController {
 
         @Override
         public int compare(Ticket o1, Ticket o2) {
-            if (o1 == null || o1 == null)
+            if (o1 == null || o2 == null)
                 return 0;
             if (o1.getPriority() != o2.getPriority())
                 return o2.getPriority() - o1.getPriority();
-            int dueCompare = 0;
-            if (o1.getDue() != null)
 
-                dueCompare = o1.getDue().compareTo(o2.getDue());
-            if (dueCompare != 0)
-                return dueCompare;
+            if (o1.getDue() != null && o2.getDue() != null) {
+                int dueCompare = o1.getDue().compareTo(o2.getDue());
+                if (dueCompare != 0)
+                    return dueCompare;
+            }
             return o1.getId() - o2.getId();
         }
     }
